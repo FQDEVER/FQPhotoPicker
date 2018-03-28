@@ -1,0 +1,719 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9C14AAC52065FBE70063B352 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAC42065FBE70063B352 /* AppDelegate.m */; };
+		9C14AAC82065FBE70063B352 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAC72065FBE70063B352 /* ViewController.m */; };
+		9C14AACB2065FBE70063B352 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AAC92065FBE70063B352 /* Main.storyboard */; };
+		9C14AACD2065FBE70063B352 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AACC2065FBE70063B352 /* Assets.xcassets */; };
+		9C14AAD02065FBE70063B352 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AACE2065FBE70063B352 /* LaunchScreen.storyboard */; };
+		9C14AAD32065FBE70063B352 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAD22065FBE70063B352 /* main.m */; };
+		9C14AADD2065FBE70063B352 /* FQPhotoPickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AADC2065FBE70063B352 /* FQPhotoPickerTests.m */; };
+		9C14AAE82065FBE70063B352 /* FQPhotoPickerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAE72065FBE70063B352 /* FQPhotoPickerUITests.m */; };
+		9C14AAFA2065FD230063B352 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C14AAF92065FD230063B352 /* Photos.framework */; };
+		9C45C5422068DEB700E736CA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C52A2068DEB700E736CA /* MASCompositeConstraint.m */; };
+		9C45C5432068DEB700E736CA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C52D2068DEB700E736CA /* MASConstraint.m */; };
+		9C45C5442068DEB700E736CA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C52F2068DEB700E736CA /* MASConstraintMaker.m */; };
+		9C45C5452068DEB700E736CA /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5312068DEB700E736CA /* MASLayoutConstraint.m */; };
+		9C45C5462068DEB700E736CA /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5352068DEB700E736CA /* MASViewAttribute.m */; };
+		9C45C5472068DEB700E736CA /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5372068DEB700E736CA /* MASViewConstraint.m */; };
+		9C45C5482068DEB700E736CA /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5392068DEB700E736CA /* NSArray+MASAdditions.m */; };
+		9C45C5492068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C53C2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		9C45C54A2068DEB700E736CA /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C53E2068DEB700E736CA /* View+MASAdditions.m */; };
+		9C45C54B2068DEB700E736CA /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5412068DEB700E736CA /* ViewController+MASAdditions.m */; };
+		9C5B844D206BA3F1003A7336 /* FQAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8438206BA3F1003A7336 /* FQAsset.m */; };
+		9C5B844E206BA3F1003A7336 /* FQImagePickerCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B843A206BA3F1003A7336 /* FQImagePickerCollectionCell.m */; };
+		9C5B844F206BA3F1003A7336 /* FQImagePickerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B843C206BA3F1003A7336 /* FQImagePickerContainer.m */; };
+		9C5B8450206BA3F1003A7336 /* FQImagePickerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B843E206BA3F1003A7336 /* FQImagePickerService.m */; };
+		9C5B8451206BA3F1003A7336 /* FQImagePickerTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8440206BA3F1003A7336 /* FQImagePickerTitleBtn.m */; };
+		9C5B8452206BA3F1003A7336 /* FQImagePickerTitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8442206BA3F1003A7336 /* FQImagePickerTitleTableCell.m */; };
+		9C5B8453206BA3F1003A7336 /* FQImagePickerTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8444206BA3F1003A7336 /* FQImagePickerTitleView.m */; };
+		9C5B8454206BA3F1003A7336 /* FQImagePickerVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8446206BA3F1003A7336 /* FQImagePickerVc.m */; };
+		9C5B8455206BA3F1003A7336 /* FQImagePreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8448206BA3F1003A7336 /* FQImagePreviewCell.m */; };
+		9C5B8456206BA3F1003A7336 /* FQImagePreviewVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B844A206BA3F1003A7336 /* FQImagePreviewVc.m */; };
+		9C5B8457206BA3F1003A7336 /* FQVideoStreamCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B844C206BA3F1003A7336 /* FQVideoStreamCollectionCell.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C14AAD92065FBE70063B352 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C14AAB82065FBE70063B352 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9C14AABF2065FBE70063B352;
+			remoteInfo = FQPhotoPicker;
+		};
+		9C14AAE42065FBE70063B352 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C14AAB82065FBE70063B352 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9C14AABF2065FBE70063B352;
+			remoteInfo = FQPhotoPicker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9C14AAC02065FBE70063B352 /* FQPhotoPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FQPhotoPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C14AAC32065FBE70063B352 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9C14AAC42065FBE70063B352 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9C14AAC62065FBE70063B352 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9C14AAC72065FBE70063B352 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9C14AACA2065FBE70063B352 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9C14AACC2065FBE70063B352 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9C14AACF2065FBE70063B352 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9C14AAD12065FBE70063B352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C14AAD22065FBE70063B352 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9C14AAD82065FBE70063B352 /* FQPhotoPickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FQPhotoPickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C14AADC2065FBE70063B352 /* FQPhotoPickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FQPhotoPickerTests.m; sourceTree = "<group>"; };
+		9C14AADE2065FBE70063B352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C14AAE32065FBE70063B352 /* FQPhotoPickerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FQPhotoPickerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C14AAE72065FBE70063B352 /* FQPhotoPickerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FQPhotoPickerUITests.m; sourceTree = "<group>"; };
+		9C14AAE92065FBE70063B352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C14AAF92065FD230063B352 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		9C45C5292068DEB700E736CA /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		9C45C52A2068DEB700E736CA /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		9C45C52B2068DEB700E736CA /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		9C45C52C2068DEB700E736CA /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		9C45C52D2068DEB700E736CA /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		9C45C52E2068DEB700E736CA /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		9C45C52F2068DEB700E736CA /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		9C45C5302068DEB700E736CA /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		9C45C5312068DEB700E736CA /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		9C45C5322068DEB700E736CA /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		9C45C5332068DEB700E736CA /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		9C45C5342068DEB700E736CA /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		9C45C5352068DEB700E736CA /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		9C45C5362068DEB700E736CA /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		9C45C5372068DEB700E736CA /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		9C45C5382068DEB700E736CA /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		9C45C5392068DEB700E736CA /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		9C45C53A2068DEB700E736CA /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		9C45C53B2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		9C45C53C2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		9C45C53D2068DEB700E736CA /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		9C45C53E2068DEB700E736CA /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		9C45C53F2068DEB700E736CA /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		9C45C5402068DEB700E736CA /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		9C45C5412068DEB700E736CA /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		9C5B8437206BA3F1003A7336 /* FQAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQAsset.h; sourceTree = "<group>"; };
+		9C5B8438206BA3F1003A7336 /* FQAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQAsset.m; sourceTree = "<group>"; };
+		9C5B8439206BA3F1003A7336 /* FQImagePickerCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerCollectionCell.h; sourceTree = "<group>"; };
+		9C5B843A206BA3F1003A7336 /* FQImagePickerCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerCollectionCell.m; sourceTree = "<group>"; };
+		9C5B843B206BA3F1003A7336 /* FQImagePickerContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerContainer.h; sourceTree = "<group>"; };
+		9C5B843C206BA3F1003A7336 /* FQImagePickerContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerContainer.m; sourceTree = "<group>"; };
+		9C5B843D206BA3F1003A7336 /* FQImagePickerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerService.h; sourceTree = "<group>"; };
+		9C5B843E206BA3F1003A7336 /* FQImagePickerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerService.m; sourceTree = "<group>"; };
+		9C5B843F206BA3F1003A7336 /* FQImagePickerTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerTitleBtn.h; sourceTree = "<group>"; };
+		9C5B8440206BA3F1003A7336 /* FQImagePickerTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerTitleBtn.m; sourceTree = "<group>"; };
+		9C5B8441206BA3F1003A7336 /* FQImagePickerTitleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerTitleTableCell.h; sourceTree = "<group>"; };
+		9C5B8442206BA3F1003A7336 /* FQImagePickerTitleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerTitleTableCell.m; sourceTree = "<group>"; };
+		9C5B8443206BA3F1003A7336 /* FQImagePickerTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerTitleView.h; sourceTree = "<group>"; };
+		9C5B8444206BA3F1003A7336 /* FQImagePickerTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerTitleView.m; sourceTree = "<group>"; };
+		9C5B8445206BA3F1003A7336 /* FQImagePickerVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerVc.h; sourceTree = "<group>"; };
+		9C5B8446206BA3F1003A7336 /* FQImagePickerVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePickerVc.m; sourceTree = "<group>"; };
+		9C5B8447206BA3F1003A7336 /* FQImagePreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePreviewCell.h; sourceTree = "<group>"; };
+		9C5B8448206BA3F1003A7336 /* FQImagePreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePreviewCell.m; sourceTree = "<group>"; };
+		9C5B8449206BA3F1003A7336 /* FQImagePreviewVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePreviewVc.h; sourceTree = "<group>"; };
+		9C5B844A206BA3F1003A7336 /* FQImagePreviewVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePreviewVc.m; sourceTree = "<group>"; };
+		9C5B844B206BA3F1003A7336 /* FQVideoStreamCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQVideoStreamCollectionCell.h; sourceTree = "<group>"; };
+		9C5B844C206BA3F1003A7336 /* FQVideoStreamCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQVideoStreamCollectionCell.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C14AABD2065FBE70063B352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C14AAFA2065FD230063B352 /* Photos.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C14AAD52065FBE70063B352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C14AAE02065FBE70063B352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9C14AAB72065FBE70063B352 = {
+			isa = PBXGroup;
+			children = (
+				9C14AAC22065FBE70063B352 /* FQPhotoPicker */,
+				9C14AADB2065FBE70063B352 /* FQPhotoPickerTests */,
+				9C14AAE62065FBE70063B352 /* FQPhotoPickerUITests */,
+				9C14AAC12065FBE70063B352 /* Products */,
+				9C14AAF82065FD220063B352 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9C14AAC12065FBE70063B352 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C14AAC02065FBE70063B352 /* FQPhotoPicker.app */,
+				9C14AAD82065FBE70063B352 /* FQPhotoPickerTests.xctest */,
+				9C14AAE32065FBE70063B352 /* FQPhotoPickerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9C14AAC22065FBE70063B352 /* FQPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				9C45C5282068DEB700E736CA /* Masonry */,
+				9C5B8436206BA3F1003A7336 /* FQImagePickerVC */,
+				9C14AAC32065FBE70063B352 /* AppDelegate.h */,
+				9C14AAC42065FBE70063B352 /* AppDelegate.m */,
+				9C14AAC62065FBE70063B352 /* ViewController.h */,
+				9C14AAC72065FBE70063B352 /* ViewController.m */,
+				9C14AAC92065FBE70063B352 /* Main.storyboard */,
+				9C14AACC2065FBE70063B352 /* Assets.xcassets */,
+				9C14AACE2065FBE70063B352 /* LaunchScreen.storyboard */,
+				9C14AAD12065FBE70063B352 /* Info.plist */,
+				9C14AAD22065FBE70063B352 /* main.m */,
+			);
+			path = FQPhotoPicker;
+			sourceTree = "<group>";
+		};
+		9C14AADB2065FBE70063B352 /* FQPhotoPickerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9C14AADC2065FBE70063B352 /* FQPhotoPickerTests.m */,
+				9C14AADE2065FBE70063B352 /* Info.plist */,
+			);
+			path = FQPhotoPickerTests;
+			sourceTree = "<group>";
+		};
+		9C14AAE62065FBE70063B352 /* FQPhotoPickerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9C14AAE72065FBE70063B352 /* FQPhotoPickerUITests.m */,
+				9C14AAE92065FBE70063B352 /* Info.plist */,
+			);
+			path = FQPhotoPickerUITests;
+			sourceTree = "<group>";
+		};
+		9C14AAF82065FD220063B352 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C14AAF92065FD230063B352 /* Photos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C45C5282068DEB700E736CA /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				9C45C5292068DEB700E736CA /* MASCompositeConstraint.h */,
+				9C45C52A2068DEB700E736CA /* MASCompositeConstraint.m */,
+				9C45C52B2068DEB700E736CA /* MASConstraint+Private.h */,
+				9C45C52C2068DEB700E736CA /* MASConstraint.h */,
+				9C45C52D2068DEB700E736CA /* MASConstraint.m */,
+				9C45C52E2068DEB700E736CA /* MASConstraintMaker.h */,
+				9C45C52F2068DEB700E736CA /* MASConstraintMaker.m */,
+				9C45C5302068DEB700E736CA /* MASLayoutConstraint.h */,
+				9C45C5312068DEB700E736CA /* MASLayoutConstraint.m */,
+				9C45C5322068DEB700E736CA /* Masonry.h */,
+				9C45C5332068DEB700E736CA /* MASUtilities.h */,
+				9C45C5342068DEB700E736CA /* MASViewAttribute.h */,
+				9C45C5352068DEB700E736CA /* MASViewAttribute.m */,
+				9C45C5362068DEB700E736CA /* MASViewConstraint.h */,
+				9C45C5372068DEB700E736CA /* MASViewConstraint.m */,
+				9C45C5382068DEB700E736CA /* NSArray+MASAdditions.h */,
+				9C45C5392068DEB700E736CA /* NSArray+MASAdditions.m */,
+				9C45C53A2068DEB700E736CA /* NSArray+MASShorthandAdditions.h */,
+				9C45C53B2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.h */,
+				9C45C53C2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m */,
+				9C45C53D2068DEB700E736CA /* View+MASAdditions.h */,
+				9C45C53E2068DEB700E736CA /* View+MASAdditions.m */,
+				9C45C53F2068DEB700E736CA /* View+MASShorthandAdditions.h */,
+				9C45C5402068DEB700E736CA /* ViewController+MASAdditions.h */,
+				9C45C5412068DEB700E736CA /* ViewController+MASAdditions.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		9C5B8436206BA3F1003A7336 /* FQImagePickerVC */ = {
+			isa = PBXGroup;
+			children = (
+				9C5B8437206BA3F1003A7336 /* FQAsset.h */,
+				9C5B8438206BA3F1003A7336 /* FQAsset.m */,
+				9C5B8439206BA3F1003A7336 /* FQImagePickerCollectionCell.h */,
+				9C5B843A206BA3F1003A7336 /* FQImagePickerCollectionCell.m */,
+				9C5B843B206BA3F1003A7336 /* FQImagePickerContainer.h */,
+				9C5B843C206BA3F1003A7336 /* FQImagePickerContainer.m */,
+				9C5B843D206BA3F1003A7336 /* FQImagePickerService.h */,
+				9C5B843E206BA3F1003A7336 /* FQImagePickerService.m */,
+				9C5B843F206BA3F1003A7336 /* FQImagePickerTitleBtn.h */,
+				9C5B8440206BA3F1003A7336 /* FQImagePickerTitleBtn.m */,
+				9C5B8441206BA3F1003A7336 /* FQImagePickerTitleTableCell.h */,
+				9C5B8442206BA3F1003A7336 /* FQImagePickerTitleTableCell.m */,
+				9C5B8443206BA3F1003A7336 /* FQImagePickerTitleView.h */,
+				9C5B8444206BA3F1003A7336 /* FQImagePickerTitleView.m */,
+				9C5B8445206BA3F1003A7336 /* FQImagePickerVc.h */,
+				9C5B8446206BA3F1003A7336 /* FQImagePickerVc.m */,
+				9C5B8447206BA3F1003A7336 /* FQImagePreviewCell.h */,
+				9C5B8448206BA3F1003A7336 /* FQImagePreviewCell.m */,
+				9C5B8449206BA3F1003A7336 /* FQImagePreviewVc.h */,
+				9C5B844A206BA3F1003A7336 /* FQImagePreviewVc.m */,
+				9C5B844B206BA3F1003A7336 /* FQVideoStreamCollectionCell.h */,
+				9C5B844C206BA3F1003A7336 /* FQVideoStreamCollectionCell.m */,
+			);
+			path = FQImagePickerVC;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9C14AABF2065FBE70063B352 /* FQPhotoPicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C14AAEC2065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPicker" */;
+			buildPhases = (
+				9C14AABC2065FBE70063B352 /* Sources */,
+				9C14AABD2065FBE70063B352 /* Frameworks */,
+				9C14AABE2065FBE70063B352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FQPhotoPicker;
+			productName = FQPhotoPicker;
+			productReference = 9C14AAC02065FBE70063B352 /* FQPhotoPicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9C14AAD72065FBE70063B352 /* FQPhotoPickerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C14AAEF2065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPickerTests" */;
+			buildPhases = (
+				9C14AAD42065FBE70063B352 /* Sources */,
+				9C14AAD52065FBE70063B352 /* Frameworks */,
+				9C14AAD62065FBE70063B352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C14AADA2065FBE70063B352 /* PBXTargetDependency */,
+			);
+			name = FQPhotoPickerTests;
+			productName = FQPhotoPickerTests;
+			productReference = 9C14AAD82065FBE70063B352 /* FQPhotoPickerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9C14AAE22065FBE70063B352 /* FQPhotoPickerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C14AAF22065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPickerUITests" */;
+			buildPhases = (
+				9C14AADF2065FBE70063B352 /* Sources */,
+				9C14AAE02065FBE70063B352 /* Frameworks */,
+				9C14AAE12065FBE70063B352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C14AAE52065FBE70063B352 /* PBXTargetDependency */,
+			);
+			name = FQPhotoPickerUITests;
+			productName = FQPhotoPickerUITests;
+			productReference = 9C14AAE32065FBE70063B352 /* FQPhotoPickerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C14AAB82065FBE70063B352 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = fanqi;
+				TargetAttributes = {
+					9C14AABF2065FBE70063B352 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					9C14AAD72065FBE70063B352 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9C14AABF2065FBE70063B352;
+					};
+					9C14AAE22065FBE70063B352 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9C14AABF2065FBE70063B352;
+					};
+				};
+			};
+			buildConfigurationList = 9C14AABB2065FBE70063B352 /* Build configuration list for PBXProject "FQPhotoPicker" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9C14AAB72065FBE70063B352;
+			productRefGroup = 9C14AAC12065FBE70063B352 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9C14AABF2065FBE70063B352 /* FQPhotoPicker */,
+				9C14AAD72065FBE70063B352 /* FQPhotoPickerTests */,
+				9C14AAE22065FBE70063B352 /* FQPhotoPickerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9C14AABE2065FBE70063B352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C14AAD02065FBE70063B352 /* LaunchScreen.storyboard in Resources */,
+				9C14AACD2065FBE70063B352 /* Assets.xcassets in Resources */,
+				9C14AACB2065FBE70063B352 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C14AAD62065FBE70063B352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C14AAE12065FBE70063B352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C14AABC2065FBE70063B352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C45C54A2068DEB700E736CA /* View+MASAdditions.m in Sources */,
+				9C5B8451206BA3F1003A7336 /* FQImagePickerTitleBtn.m in Sources */,
+				9C5B8452206BA3F1003A7336 /* FQImagePickerTitleTableCell.m in Sources */,
+				9C14AAC82065FBE70063B352 /* ViewController.m in Sources */,
+				9C5B844D206BA3F1003A7336 /* FQAsset.m in Sources */,
+				9C14AAD32065FBE70063B352 /* main.m in Sources */,
+				9C45C54B2068DEB700E736CA /* ViewController+MASAdditions.m in Sources */,
+				9C45C5462068DEB700E736CA /* MASViewAttribute.m in Sources */,
+				9C45C5422068DEB700E736CA /* MASCompositeConstraint.m in Sources */,
+				9C5B8455206BA3F1003A7336 /* FQImagePreviewCell.m in Sources */,
+				9C14AAC52065FBE70063B352 /* AppDelegate.m in Sources */,
+				9C5B8450206BA3F1003A7336 /* FQImagePickerService.m in Sources */,
+				9C5B844E206BA3F1003A7336 /* FQImagePickerCollectionCell.m in Sources */,
+				9C5B844F206BA3F1003A7336 /* FQImagePickerContainer.m in Sources */,
+				9C45C5442068DEB700E736CA /* MASConstraintMaker.m in Sources */,
+				9C5B8457206BA3F1003A7336 /* FQVideoStreamCollectionCell.m in Sources */,
+				9C45C5432068DEB700E736CA /* MASConstraint.m in Sources */,
+				9C45C5492068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				9C45C5452068DEB700E736CA /* MASLayoutConstraint.m in Sources */,
+				9C5B8456206BA3F1003A7336 /* FQImagePreviewVc.m in Sources */,
+				9C45C5482068DEB700E736CA /* NSArray+MASAdditions.m in Sources */,
+				9C5B8454206BA3F1003A7336 /* FQImagePickerVc.m in Sources */,
+				9C45C5472068DEB700E736CA /* MASViewConstraint.m in Sources */,
+				9C5B8453206BA3F1003A7336 /* FQImagePickerTitleView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C14AAD42065FBE70063B352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C14AADD2065FBE70063B352 /* FQPhotoPickerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C14AADF2065FBE70063B352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C14AAE82065FBE70063B352 /* FQPhotoPickerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C14AADA2065FBE70063B352 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9C14AABF2065FBE70063B352 /* FQPhotoPicker */;
+			targetProxy = 9C14AAD92065FBE70063B352 /* PBXContainerItemProxy */;
+		};
+		9C14AAE52065FBE70063B352 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9C14AABF2065FBE70063B352 /* FQPhotoPicker */;
+			targetProxy = 9C14AAE42065FBE70063B352 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9C14AAC92065FBE70063B352 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C14AACA2065FBE70063B352 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9C14AACE2065FBE70063B352 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C14AACF2065FBE70063B352 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9C14AAEA2065FBE70063B352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9C14AAEB2065FBE70063B352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9C14AAED2065FBE70063B352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4XJ2W74NHP;
+				INFOPLIST_FILE = FQPhotoPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-34.FQPhotoPicker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9C14AAEE2065FBE70063B352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4XJ2W74NHP;
+				INFOPLIST_FILE = FQPhotoPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-34.FQPhotoPicker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9C14AAF02065FBE70063B352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FQPhotoPickerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-34.FQPhotoPickerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FQPhotoPicker.app/FQPhotoPicker";
+			};
+			name = Debug;
+		};
+		9C14AAF12065FBE70063B352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FQPhotoPickerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-34.FQPhotoPickerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FQPhotoPicker.app/FQPhotoPicker";
+			};
+			name = Release;
+		};
+		9C14AAF32065FBE70063B352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FQPhotoPickerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-34.FQPhotoPickerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FQPhotoPicker;
+			};
+			name = Debug;
+		};
+		9C14AAF42065FBE70063B352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = FQPhotoPickerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "-34.FQPhotoPickerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FQPhotoPicker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9C14AABB2065FBE70063B352 /* Build configuration list for PBXProject "FQPhotoPicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C14AAEA2065FBE70063B352 /* Debug */,
+				9C14AAEB2065FBE70063B352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C14AAEC2065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C14AAED2065FBE70063B352 /* Debug */,
+				9C14AAEE2065FBE70063B352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C14AAEF2065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPickerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C14AAF02065FBE70063B352 /* Debug */,
+				9C14AAF12065FBE70063B352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C14AAF22065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPickerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C14AAF32065FBE70063B352 /* Debug */,
+				9C14AAF42065FBE70063B352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C14AAB82065FBE70063B352 /* Project object */;
+}
