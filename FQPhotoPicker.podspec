@@ -20,4 +20,6 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target      = '9.0'
 
+    s.dependency                 'Masonry'
+
 end

@@ -17,6 +17,8 @@
 
 @property (nonatomic, assign) NSInteger selectIndex;
 
+@property (nonatomic, assign) BOOL isScanCode;
+
 //根据传入的Asset对象.更新指定的编号
 -(void)upload;
 

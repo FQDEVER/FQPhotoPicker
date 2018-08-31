@@ -18,9 +18,26 @@
 
 
 /**
- 获取选中的AssetArr
+ 获得用户选中的所有图片.包含原图
+ 
+ @return 图片数组
  */
--(NSArray *)getSelectAssetArr;
+-(NSArray <UIImage *> *)getSelectImageArr;
+
+
+/**
+ 获得用户选中的所有预览图
+ 
+ @return 图片数组
+ */
+-(NSArray <UIImage *> *)getSelectPreviewImageArr;
+
+/**
+ 获得用户选中的所有Asset对象
+ 
+ @return 图片数组
+ */
+-(NSArray <FQAsset *> *)getSelectAssetArr;
 
 /**
  新增指定的asset对象以及对应的cell
@@ -41,17 +58,29 @@
 -(NSArray *)reloadSelectArrayWithArr:(NSArray *)selectArr;
 
 /**
+ 根据选中的数组去更新需要刷新展示的数据 - 并且不清空当前选中的cell.
+ 
+ @param selectArr 待刷新展示的数据
+ @return 更新完成的数组
+ */
+-(NSArray *)reloadSelectArrayNoneClearCurrentCellWithArr:(NSArray *)selectArr;
+
+/**
  清空选中的Asset
  */
 -(void)clearSelectAssetArr;
 
 /**
- 获得用户选中的所有图片
-
- @return 图片数组
+ 清空选中的Cell
  */
--(NSArray <UIImage *> *)getSelectImageArr;
+-(void)clearSelectCellArr;
 
+/**
+ 设置选中的assetArr
+
+ @param 选中的AssetArr
+ */
+-(void)setSelectAssetArr:(NSArray * )assetArr;
 
 /**
  是否达到上限.yes为已经达到上限.no为未达到上限
@@ -59,4 +88,12 @@
  @return 是否达到上限
  */
 +(BOOL)isUpperLimit;
+
+/**
+ 获取asset对应的图片数据
+
+ @param asset FQAsset资源数据
+ @return 图片数据
+ */
++(NSData *)getImageDataWithAsset:(FQAsset *)asset;
 @end

@@ -81,7 +81,7 @@
 {
     self.hidden = NO;
     [UIView animateWithDuration:0.33 animations:^{
-        self.titleTableView.transform = CGAffineTransformMakeTranslation(0, ScreenH * 0.7 + 64);
+        self.titleTableView.transform = CGAffineTransformMakeTranslation(0, ScreenH * 0.7 + NAVIGATION_HEIGHT);
         self.coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     } completion:^(BOOL finished) {
     }];

@@ -9,6 +9,7 @@
 #import "FQImagePickerTitleTableCell.h"
 #import "Masonry.h"
 #import "FQAsset.h"
+#import "FQImagePickerService.h"
 
 @interface FQImagePickerTitleTableCell()
 
@@ -63,14 +64,13 @@
     
     
     FQAsset * firstAsset = [imgDict[FQPHImage] firstObject];
-    if ([self.titleLab.text isEqualToString:@"所有照片"]) {
+    if ([self.titleLab.text isEqualToString:[FQImagePickerService getAllPhotosStr]]) {
         firstAsset = imgDict[FQPHImage][1];
     }
     __weak typeof(self) weakSelf = self;
     [firstAsset fetchThumbImageWithSize:CGSizeMake(70, 70) completion:^(UIImage *resultImg, NSDictionary *info) {
         weakSelf.titleImgView.image = resultImg;
     }];
-    
     self.countLab.text = [NSString stringWithFormat:@"(%@)",imgDict[FQPHCount]];
 }
 
@@ -79,6 +79,8 @@
 {
     if (!_titleImgView) {
         _titleImgView = [[UIImageView alloc]init];
+        _titleImgView.contentMode = UIViewContentModeScaleAspectFill;
+        _titleImgView.clipsToBounds = YES;
     }
     return _titleImgView;
 }

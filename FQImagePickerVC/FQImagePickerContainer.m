@@ -96,13 +96,6 @@ static FQImagePickerContainer *imgPickerContainer;
 }
 
 /**
- 获取选中的AssetArr
- */
--(NSArray *)getSelectAssetArr{
-    return _assetArr.copy;
-}
-
-/**
  获得用户选中的所有图片
  
  @return 图片数组
@@ -111,13 +104,42 @@ static FQImagePickerContainer *imgPickerContainer;
 {
     NSMutableArray * selectImgArr = [NSMutableArray array];
     for (FQAsset * asset in self.assetArr) {
-        if (asset.isOrgin) {
-            [selectImgArr addObject:asset.orginImg];
-        }else{
-            [selectImgArr addObject:asset.previewImg];
-        }
+         if (asset.isGif) {
+             [selectImgArr addObject:asset.gifImage ? asset.gifImage : asset.previewImg];
+         }else{
+             if (asset.isOrgin) {
+                 [selectImgArr addObject:asset.orginImg];
+             }else{
+                 [selectImgArr addObject:asset.previewImg];
+             }
+         }
     }
     return selectImgArr.copy;
+}
+
+
+/**
+ 获得用户选中的所有预览图
+ 
+ @return 图片数组
+ */
+-(NSArray <UIImage *> *)getSelectPreviewImageArr
+{
+    NSMutableArray * selectImgArr = [NSMutableArray array];
+    for (FQAsset * asset in self.assetArr) {
+            [selectImgArr addObject:asset.previewImg];
+    }
+    return selectImgArr.copy;
+}
+
+/**
+ 获得用户选中的所有Asset对象
+ 
+ @return 图片数组
+ */
+-(NSArray <FQAsset *> *)getSelectAssetArr
+{
+    return self.assetArr.copy;
 }
 
 /**
@@ -136,7 +158,7 @@ static FQImagePickerContainer *imgPickerContainer;
 }
 
 /**
- 根据选中的数组去更新需要刷新展示的数据
+ 根据选中的数组去更新需要刷新展示的数据 - 并且清空当前选中的cell.
  
  @param selectArr 待刷新展示的数据
  @return 更新完成的数组
@@ -174,10 +196,86 @@ static FQImagePickerContainer *imgPickerContainer;
     return selectArr;
 }
 
+/**
+ 根据选中的数组去更新需要刷新展示的数据 - 并且不清空当前选中的cell.
+ 
+ @param selectArr 待刷新展示的数据
+ @return 更新完成的数组
+ */
+-(NSArray *)reloadSelectArrayNoneClearCurrentCellWithArr:(NSArray *)selectArr
+{
+    NSMutableArray * dataMuArr = [NSMutableArray array]; //更新self.assetArr
+    for (FQAsset * selectIndexAsset in self.assetArr) {
+        NSInteger count = 0;
+        for (FQAsset * selectAsset in selectArr) {
+            if ([selectAsset.asset.localIdentifier isEqualToString:selectIndexAsset.asset.localIdentifier] && ![selectAsset isEqual:selectIndexAsset]) {
+                selectAsset.selectIndex = selectIndexAsset.selectIndex;
+                selectAsset.isSelect = selectIndexAsset.isSelect;
+                selectAsset.isOrgin = selectIndexAsset.isOrgin;
+                [dataMuArr addObject:selectAsset];
+                count = 1;
+                selectIndexAsset.selectIndex = 0;
+                selectIndexAsset.isSelect = NO;
+                selectIndexAsset.isOrgin = NO;
+            }else if ([selectAsset isEqual:selectIndexAsset]){
+                [dataMuArr addObject:selectIndexAsset];
+                count = 1;
+            }
+        }
+        if (count == 0) {
+            [dataMuArr addObject:selectIndexAsset];
+        }
+    }
+    
+    self.assetArr = dataMuArr;
+    
+    return selectArr;
+}
+
+/**
+ 清空选中的Cell
+ */
+-(void)clearSelectCellArr
+{
+
+    [self.selectCurrentCellArr removeAllObjects];
+}
+
+
+//外部调用时.更新选中的cell
+-(void)setSelectAssetArr:(NSArray * )assetArr
+{
+    for (FQAsset *asset in self.assetArr) {
+            asset.isSelect = NO;
+            asset.selectIndex = 0;
+    }
+    
+    self.assetArr = [NSMutableArray arrayWithArray:assetArr];
+    
+    for (int i = 0; i < self.assetArr.count; ++i) {
+        FQAsset * asset = self.assetArr[i];
+        asset.isSelect = YES;
+        asset.selectIndex = i + 1;
+    }
+}
+
 +(BOOL)isUpperLimit
 {
     return [[FQImagePickerContainer share]getSelectAssetArr].count >= 9;
 }
+
++(NSData *)getImageDataWithAsset:(FQAsset *)asset{
+    if (asset.isGif) {
+        return asset.gifImageData;
+    }else{
+        if (asset.isOrgin) {
+            return UIImageJPEGRepresentation(asset.orginImg, 0.5);
+        }else{
+            return UIImageJPEGRepresentation(asset.previewImg, 1.0);
+        }
+    }
+}
+
 
 -(NSMutableArray *)assetArr
 {

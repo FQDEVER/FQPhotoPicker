@@ -11,10 +11,12 @@
 #import "FQAsset.h"
 
 @interface FQImagePickerService()
-    @property (nonatomic, strong) NSMutableArray *allAlbumArr; //保存格式
+@property (nonatomic, strong) NSMutableArray *allAlbumArr; //保存格式
 //@{@"相册名称":@{FQPHImage:相册所有FQAsset数组,FQPHTitle:相册名称,FQPHCount:图片数量}}
 
-    @property (nonatomic, strong) NSMutableArray *titleStrArr;
+@property (nonatomic, strong) NSMutableArray *titleStrArr;
+
+@property (nonatomic, copy) NSString *allPhotosStr;
 @end
 @implementation FQImagePickerService
 
@@ -25,7 +27,6 @@ static FQImagePickerService *imgPickerService;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         imgPickerService = [super allocWithZone:zone];
-        [imgPickerService getThumnailImages];
     });
     return imgPickerService;
 }
@@ -54,13 +55,32 @@ static FQImagePickerService *imgPickerService;
 //更新数据
 -(void)reloadData
 {
-    [self.titleStrArr removeAllObjects];
     [self getThumnailImages];
+}
+
+//清空数据-释放内存
+-(void)clearDataArr{
+    [self.titleStrArr removeAllObjects];
+    [self.allAlbumArr removeAllObjects];
 }
 
 -(void)getThumnailImages
 {
-    [self.allAlbumArr removeAllObjects];
+    [self clearDataArr];
+    
+    PHFetchResult<PHAssetCollection *> * assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
+    for (PHAssetCollection * assetCollection in assetCollections) {
+        //获取某个相册的所有内容
+        PHFetchResult <PHAsset*> *assets = [PHAsset fetchAssetsInAssetCollection:assetCollection options:nil];
+        
+        if (assets.count > 0) {
+            //相册标题
+            self.allPhotosStr = assetCollection.localizedTitle;
+        }
+        
+        [self enumerateAssetsInAssetCollection:assetCollection];
+    }
+    
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 处理耗时操作的代码块...
@@ -82,7 +102,7 @@ static FQImagePickerService *imgPickerService;
             }
         }
         
-        for (int i = 200; i < 216; ++i) {
+        for (int i = 200; i < 209; ++i) {
             //获取自定义
             PHFetchResult<PHAssetCollection *> * assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:i options:nil];
             
@@ -90,6 +110,16 @@ static FQImagePickerService *imgPickerService;
                 [self enumerateAssetsInAssetCollection:assetCollection];
             }
         }
+        
+        for (int i = 210; i < 216; ++i) {
+            //获取自定义
+            PHFetchResult<PHAssetCollection *> * assetCollections = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:i options:nil];
+            
+            for (PHAssetCollection * assetCollection in assetCollections) {
+                [self enumerateAssetsInAssetCollection:assetCollection];
+            }
+        }
+        
         //通知主线程刷新
         dispatch_async(dispatch_get_main_queue(), ^{
             //回调或者说是通知主线程刷新，
@@ -99,6 +129,22 @@ static FQImagePickerService *imgPickerService;
         });
         
     });
+}
+
+/**
+ 获取当前所有照片的文本
+ 
+ @return 当前语言环境下所有照片相应的描述
+ */
++(NSString *)getAllPhotosStr
+{
+    NSString * allPhotosStr = [FQImagePickerService share].allPhotosStr;
+    
+    if (allPhotosStr.length && allPhotosStr) {
+        return allPhotosStr;
+    }else{
+        return @"";
+    }
 }
 
 //遍历相册中的所有图片
@@ -111,23 +157,10 @@ static FQImagePickerService *imgPickerService;
         //相册标题
         NSString * titleStr = assetCollection.localizedTitle;
         
-        if ([titleStr isEqualToString:@"Camera Roll"]) {
-            titleStr = @"所有照片";
-        }
-        
-        if ([titleStr isEqualToString:@"My Photo Stream"]) {
-            titleStr = @"我的照片流";
-        }
-        
-        if ([titleStr isEqualToString:@"Videos"]) {
-            titleStr = @"视频"; //不需要视频文件
+        if (!titleStr) {
             return;
         }
         
-        if ([titleStr isEqualToString:@"Screenshots"]) {
-            titleStr = @"屏幕快照";
-        }
-
         //当前相册的个数
         NSInteger count = assets.count;
         
@@ -143,10 +176,10 @@ static FQImagePickerService *imgPickerService;
         
         fq_assets = (NSMutableArray *)[[fq_assets reverseObjectEnumerator]allObjects];
         
-        if ([titleStr isEqualToString:@"所有照片"]) {
+        if ([titleStr isEqualToString:self.allPhotosStr]) {
             [fq_assets insertObject:[FQAsset new] atIndex:0];
         }
-
+        
         if (![self.titleStrArr containsObject:titleStr]) {
             [self.titleStrArr addObject:titleStr];
             [self.allAlbumArr addObject:@{titleStr : @{FQPHImage:fq_assets.copy,FQPHTitle:titleStr,FQPHCount:@(count)}}];

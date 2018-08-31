@@ -25,11 +25,23 @@
 //是否原图
 @property (nonatomic, assign) BOOL isOrgin;
 
+//是否gif图
+@property (nonatomic, assign) BOOL isGif;
+
 //原图
 @property (nonatomic, strong ,readonly) UIImage *orginImg;
 
+//缩略图
+@property (nonatomic, strong ,readonly) UIImage *thumbImg;
+
 //预览图
 @property (nonatomic, strong ,readonly) UIImage *previewImg;
+
+//获取gif图片数据
+@property (nonatomic, strong ,readonly) UIImage *gifImage;
+
+//获取gif图片data数据
+@property (nonatomic, strong ,readonly) NSData *gifImageData;
 
 //获取图片尺寸
 @property (nonatomic, assign, readonly) CGFloat imgSize;
@@ -52,11 +64,13 @@
 //异步获取缩略图
 -(void)fetchThumbImageWithSize:(CGSize)size completion:(void(^)(UIImage * ,NSDictionary *))completion;
 
+//异步获取GIF图
+-(void)fetchGIFImgWithCompletion:(void(^)(UIImage *,NSDictionary *))completion progressBlock:(PHAssetImageProgressHandler)progressHandler;
+
 //同步获取预览图(以当前屏幕为标准获取的图片尺寸)
 -(UIImage *)getPreviewImg;
 
 //异步获取预览图(以当前屏幕为标准获取的图片尺寸)
--(void)fetchPreviewImgWithCompletion:(void(^)(UIImage *,NSDictionary *))completion;
-
+-(void)fetchPreviewImgWithCompletion:(void(^)(UIImage *,NSDictionary *))completion progressBlock:(PHAssetImageProgressHandler)progressHandler;
 
 @end
