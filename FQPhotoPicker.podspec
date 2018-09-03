@@ -14,8 +14,8 @@ Pod::Spec.new do |s|
 
     s.source                     = { :git => 'https://github.com/FQDEVER/FQPhotoPicker.git', :tag => s.version }
 
-    s.source_files               = 'FQImagePickerVC/PhotoPicker/*.{h,m}'
-    s.resource_bundle            = { 'FQImagePicker' => ['FQImagePickerVC/*.xcassets']}
+    s.source_files               = 'FQImagePickerVC/*.{h,m}'
+    s.resource_bundle            = { 'FQPhotoPicker' => ['FQImagePickerVC/PhotoPicker.bundle']}
 
     s.platform                   = :ios
 

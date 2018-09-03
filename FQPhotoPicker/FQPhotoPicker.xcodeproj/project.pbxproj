@@ -11,7 +11,6 @@
 		9C14AAC52065FBE70063B352 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAC42065FBE70063B352 /* AppDelegate.m */; };
 		9C14AAC82065FBE70063B352 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAC72065FBE70063B352 /* ViewController.m */; };
 		9C14AACB2065FBE70063B352 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AAC92065FBE70063B352 /* Main.storyboard */; };
-		9C14AACD2065FBE70063B352 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AACC2065FBE70063B352 /* Assets.xcassets */; };
 		9C14AAD02065FBE70063B352 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AACE2065FBE70063B352 /* LaunchScreen.storyboard */; };
 		9C14AAD32065FBE70063B352 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAD22065FBE70063B352 /* main.m */; };
 		9C14AADD2065FBE70063B352 /* FQPhotoPickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AADC2065FBE70063B352 /* FQPhotoPickerTests.m */; };
@@ -28,6 +27,8 @@
 		9C5B8455206BA3F1003A7336 /* FQImagePreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8448206BA3F1003A7336 /* FQImagePreviewCell.m */; };
 		9C5B8456206BA3F1003A7336 /* FQImagePreviewVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B844A206BA3F1003A7336 /* FQImagePreviewVc.m */; };
 		9C5B8457206BA3F1003A7336 /* FQVideoStreamCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B844C206BA3F1003A7336 /* FQVideoStreamCollectionCell.m */; };
+		9C61C783213D1E6F00B0C59D /* PhotoPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9C61C782213D1E6F00B0C59D /* PhotoPicker.bundle */; };
+		9C61C787213D231500B0C59D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C61C786213D231500B0C59D /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +56,6 @@
 		9C14AAC62065FBE70063B352 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9C14AAC72065FBE70063B352 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9C14AACA2065FBE70063B352 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9C14AACC2065FBE70063B352 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C14AACF2065FBE70063B352 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C14AAD12065FBE70063B352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C14AAD22065FBE70063B352 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -88,6 +88,8 @@
 		9C5B844A206BA3F1003A7336 /* FQImagePreviewVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePreviewVc.m; sourceTree = "<group>"; };
 		9C5B844B206BA3F1003A7336 /* FQVideoStreamCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQVideoStreamCollectionCell.h; sourceTree = "<group>"; };
 		9C5B844C206BA3F1003A7336 /* FQVideoStreamCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQVideoStreamCollectionCell.m; sourceTree = "<group>"; };
+		9C61C782213D1E6F00B0C59D /* PhotoPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PhotoPicker.bundle; sourceTree = "<group>"; };
+		9C61C786213D231500B0C59D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAB25961BC557D059CD6416A /* libPods-FQPhotoPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FQPhotoPicker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC0348E0A0D9B137F7BB166 /* Pods-FQPhotoPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FQPhotoPicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FQPhotoPicker/Pods-FQPhotoPicker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,13 +146,13 @@
 		9C14AAC22065FBE70063B352 /* FQPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				9C61C786213D231500B0C59D /* Assets.xcassets */,
 				9C5B8436206BA3F1003A7336 /* FQImagePickerVC */,
 				9C14AAC32065FBE70063B352 /* AppDelegate.h */,
 				9C14AAC42065FBE70063B352 /* AppDelegate.m */,
 				9C14AAC62065FBE70063B352 /* ViewController.h */,
 				9C14AAC72065FBE70063B352 /* ViewController.m */,
 				9C14AAC92065FBE70063B352 /* Main.storyboard */,
-				9C14AACC2065FBE70063B352 /* Assets.xcassets */,
 				9C14AACE2065FBE70063B352 /* LaunchScreen.storyboard */,
 				9C14AAD12065FBE70063B352 /* Info.plist */,
 				9C14AAD22065FBE70063B352 /* main.m */,
@@ -188,6 +190,7 @@
 		9C5B8436206BA3F1003A7336 /* FQImagePickerVC */ = {
 			isa = PBXGroup;
 			children = (
+				9C61C782213D1E6F00B0C59D /* PhotoPicker.bundle */,
 				9C5B8437206BA3F1003A7336 /* FQAsset.h */,
 				9C5B8438206BA3F1003A7336 /* FQAsset.m */,
 				9C5B8439206BA3F1003A7336 /* FQImagePickerCollectionCell.h */,
@@ -331,7 +334,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C14AAD02065FBE70063B352 /* LaunchScreen.storyboard in Resources */,
-				9C14AACD2065FBE70063B352 /* Assets.xcassets in Resources */,
+				9C61C783213D1E6F00B0C59D /* PhotoPicker.bundle in Resources */,
+				9C61C787213D231500B0C59D /* Assets.xcassets in Resources */,
 				9C14AACB2065FBE70063B352 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
