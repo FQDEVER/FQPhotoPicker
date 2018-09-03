@@ -83,7 +83,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
         _previewLayer.frame = self.bounds;
         _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        UIImageView * imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_CAMERA_ICON]];
+        UIImageView * imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_social_camera_new"]];
         imgView.frame = CGRectMake(0, 0, 40, 40);
         imgView.center = self.center;
         [_previewLayer  addSublayer:imgView.layer];

@@ -8,7 +8,8 @@
 
 #import "FQImagePreviewVc.h"
 #import "FQAsset.h"
-#import "Masonry.h"
+#import <Masonry.h>
+#import <YYKit.h>
 #import "FQImagePreviewCell.h"
 #import "FQImagePickerContainer.h"
 
@@ -88,13 +89,13 @@
     [self.view addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.left.right.offset(0);
-        make.height.equalTo(@(44 + TABBAR_BOTTOM_SPACING));
+        make.height.equalTo(@(44 + FQTABBAR_BOTTOM_SPACING));
     }];
     
     [self.view addSubview:self.topContainer];
     [self.topContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.offset(0);
-        make.height.mas_equalTo(NAVIGATION_HEIGHT);
+        make.height.mas_equalTo(FQNAVIGATION_HEIGHT);
     }];
     
     [self addBarButtonItem];
@@ -126,8 +127,8 @@
     self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     self.selectBtn.selected = selectAsset.isSelect;
     [self.selectBtn setTitle:[NSString stringWithFormat:@"%zd",selectAsset.selectIndex] forState:UIControlStateSelected];
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_PHOTOT_NORMAL_ICON] forState:UIControlStateNormal];
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_PHOTOT_SELECT_ICON] forState:UIControlStateSelected];
+    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_normal_new"] forState:UIControlStateNormal];
+    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_select_new"] forState:UIControlStateSelected];
     self.selectBtn.frame = CGRectMake(0, 0 , 25, 25);
     [self.selectBtn addTarget:self action:@selector(clickSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
     //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.selectBtn];
@@ -359,7 +360,7 @@
         }else{
             [UIView animateWithDuration:0.33 animations:^{
                 self.bottomView.transform = CGAffineTransformMakeTranslation(0, 44);
-                self.topContainer.transform = CGAffineTransformMakeTranslation(0, NAVIGATION_HEIGHT);
+                self.topContainer.transform = CGAffineTransformMakeTranslation(0, FQNAVIGATION_HEIGHT);
             }completion:^(BOOL finished) {
                 self.bottomView.hidden = YES;
             }];
@@ -373,7 +374,7 @@
         }];
     }else{
         [UIView animateWithDuration:0.33 animations:^{
-            self.topContainer.transform = CGAffineTransformMakeTranslation(0, -NAVIGATION_HEIGHT);
+            self.topContainer.transform = CGAffineTransformMakeTranslation(0, -FQNAVIGATION_HEIGHT);
         }completion:^(BOOL finished) {
             self.topContainer.hidden = YES;
         }];
@@ -497,7 +498,7 @@
         finishBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
         [finishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [finishBtn setBackgroundImage:[UIImage imageWithColor:RGB(26.0, 137.0, 243.0)] forState:UIControlStateNormal];
+        [finishBtn setBackgroundImage:[UIImage imageWithColor:FQRGB(26.0, 137.0, 243.0)] forState:UIControlStateNormal];
         [finishBtn addTarget:self action:@selector(clickFinishBtn:) forControlEvents:UIControlEventTouchUpInside];
         finishBtn.contentEdgeInsets = UIEdgeInsetsMake(5, 15, 5, 15);
         finishBtn.layer.cornerRadius = 3;
@@ -544,7 +545,7 @@
             make.top.left.right.bottom.offset(0);
         }];
         
-        _topContainer.frame = CGRectMake(0, 0, MAINSCREEN_WIDTH, NAVIGATION_HEIGHT);
+        _topContainer.frame = CGRectMake(0, 0, ScreenW, ScreenH);
         
     }
     return _topContainer;
@@ -562,7 +563,7 @@
 {
     if (!_topTitleLabel) {
         _topTitleLabel = [[UILabel alloc]init];
-        _topTitleLabel.textColor = COLOR_WHITE;
+        _topTitleLabel.textColor = [UIColor whiteColor];
         _topTitleLabel.textAlignment = NSTextAlignmentCenter;
         _topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
     }

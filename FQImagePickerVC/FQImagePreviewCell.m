@@ -7,7 +7,8 @@
 //
 
 #import "FQImagePreviewCell.h"
-#import "Masonry.h"
+#import <Masonry.h>
+#import <YYKit.h>
 #import "FQAsset.h"
 
 @interface FQImagePreviewCell()<UIScrollViewDelegate>
@@ -36,7 +37,7 @@
 - (void)setup {
     
     self.frame = [UIScreen mainScreen].bounds;
-    self.backgroundColor = COLOR_WHITE;
+    self.backgroundColor = [UIColor whiteColor];
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickTapGesture)];
     [self addGestureRecognizer:singleTap];
@@ -65,7 +66,7 @@
     // imageView
     self.imageView = [[YYAnimatedImageView alloc]init];//[[UIImageView alloc] init];
     self.imageView.clipsToBounds = YES;
-    self.imageView.backgroundColor = COLOR_WHITE;
+    self.imageView.backgroundColor = [UIColor whiteColor];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     self.imageView.frame = self.contentView.bounds;
     [self.containerView addSubview:self.imageView];

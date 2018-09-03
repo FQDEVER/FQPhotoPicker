@@ -7,7 +7,7 @@
 //
 
 #import "FQAsset.h"
-
+#import <YYKit.h>
 #define screenScale [UIScreen mainScreen].scale
 
 @interface FQAsset()
@@ -183,7 +183,6 @@
             }else{
             }
         }else{
-            [JTHUDTool showFailedHUDWithCustomTitle:@"加载失败" inView:KEYWINDOW hiddenAfterDelay:1.0f];
         }
     }];
 }

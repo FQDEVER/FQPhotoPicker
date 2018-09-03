@@ -78,7 +78,7 @@
 /**
  设置选中的assetArr
 
- @param 选中的AssetArr
+ @param assetArr
  */
 -(void)setSelectAssetArr:(NSArray * )assetArr;
 

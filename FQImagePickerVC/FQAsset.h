@@ -13,6 +13,19 @@
 #define FQPHCount  @"PHCount"
 #define ScreenH     [UIScreen mainScreen].bounds.size.height
 #define ScreenW     [UIScreen mainScreen].bounds.size.width
+#define FQIS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define FQNAVIGATION_HEIGHT ((FQIS_IPHONE_X == YES) ? 88.0f : 64.0f)
+//tabbar 高度
+#define FQTABBAR_HEIGHT ((FQIS_IPHONE_X == YES) ? 83.0f : 49.0f)
+#define FQTABBAR_BOTTOM_SPACING  (FQTABBAR_HEIGHT- 49.0)
+// 渐变蓝按钮开始的颜色
+#define FQCOLOR_BLUE_BUTTON_START [UIColor colorWithRed:0.00 green:0.45 blue:0.98 alpha:1.00]
+// 渐变蓝按钮结束的颜色
+#define FQCOLOR_BLUE_BUTTON_END [UIColor colorWithRed:0.13 green:0.65 blue:0.99 alpha:1.00]
+
+// 获取RGB颜色
+#define FQRGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+#define FQRGB(r,g,b) FQRGBA(r,g,b,1.0f)
 
 @interface FQAsset : NSObject
 
