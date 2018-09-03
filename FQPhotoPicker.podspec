@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
     s.name                       = 'FQPhotoPicker'
 
-    s.version                    = '0.0.5'
+    s.version                    = '0.0.6'
 
     s.summary                    = '非常简单易用的轻量级相册框架。'
 
