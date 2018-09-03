@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
     s.name                       = 'FQPhotoPicker'
 
-    s.version                    = '0.0.2'
+    s.version                    = '0.0.3'
 
     s.summary                    = '非常简单易用的轻量级相册框架。'
 
@@ -14,8 +14,8 @@ Pod::Spec.new do |s|
 
     s.source                     = { :git => 'https://github.com/FQDEVER/FQPhotoPicker.git', :tag => s.version }
 
-    s.source_files               = 'FQImagePickerVC/*.{h,m}'
-    s.resource_bundle            = { 'FQImagePicker' => ['FQPhotoPicker/**/*.xcassets']}
+    s.source_files               = 'FQImagePickerVC/PhotoPicker/*.{h,m}'
+    s.resource_bundle            = { 'FQImagePicker' => ['FQImagePickerVC/*.xcassets']}
 
     s.platform                   = :ios
 
