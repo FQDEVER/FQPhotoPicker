@@ -8,7 +8,9 @@
 
 #import "FQImagePickerCollectionCell.h"
 #import "FQImagePickerContainer.h"
-#import "UIButton+JTFQSpacing.h"
+#import <Masonry.h>
+#import <YYKit.h>
+
 @interface FQImagePickerCollectionCell()
 
 @property (strong, nonatomic) UIImageView *contentImg;
@@ -39,17 +41,16 @@
     [self addSubview:self.contentImg];
     self.backgroundColor = [UIColor whiteColor];
     self.selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.selectBtn.style = FQ_ButtonImageTitleStyleFloatingTop;
     self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_PHOTOT_NORMAL_ICON] forState:UIControlStateNormal];
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_PHOTOT_SELECT_ICON] forState:UIControlStateSelected];
+    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_normal_new"] forState:UIControlStateNormal];
+    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_select_new"] forState:UIControlStateSelected];
     self.selectBtn.frame = CGRectMake(self.bounds.size.width - 30, 5 , 25, 25);
     [self addSubview:self.selectBtn];
     [self.selectBtn addTarget:self action:@selector(clickSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     self.gifLabel = [[UILabel alloc]init];
     self.gifLabel.text = @"GIF";
-    self.gifLabel.font = FONT_SIZE_11;
+    self.gifLabel.font = [UIFont systemFontOfSize:11];
     self.gifLabel.backgroundColor = [UIColor orangeColor];
     self.gifLabel.textColor = [UIColor whiteColor];
     self.gifLabel.textAlignment = NSTextAlignmentCenter;
@@ -58,8 +59,8 @@
     [self.gifLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.offset(0);
         make.right.offset(0);
-        make.width.mas_equalTo(self.gifLabel.width + 6);
-        make.height.mas_equalTo(self.gifLabel.height + 2);
+        make.width.mas_equalTo(self.gifLabel.frame.size.width + 6);
+        make.height.mas_equalTo(self.gifLabel.frame.size.height + 2);
     }];
     
     _progressLayer = [CAShapeLayer layer];
@@ -140,7 +141,7 @@
     }
     
     sender.selected = !sender.selected;
-    MJWeakSelf
+    __weak typeof(self) weakSelf = self;
     if (sender.selected) {
         [[FQImagePickerContainer share] addAsset:_asset andImagePickerCell:weakSelf];
         

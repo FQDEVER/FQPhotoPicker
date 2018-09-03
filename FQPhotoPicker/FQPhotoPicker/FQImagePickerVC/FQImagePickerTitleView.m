@@ -11,10 +11,6 @@
 #import "Masonry.h"
 #import "FQAsset.h"
 
-#define ScreenW  [UIScreen mainScreen].bounds.size.width
-#define ScreenH  [UIScreen mainScreen].bounds.size.height
-
-
 @interface FQImagePickerTitleView()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *titleTableView;
@@ -81,7 +77,7 @@
 {
     self.hidden = NO;
     [UIView animateWithDuration:0.33 animations:^{
-        self.titleTableView.transform = CGAffineTransformMakeTranslation(0, ScreenH * 0.7 + NAVIGATION_HEIGHT);
+        self.titleTableView.transform = CGAffineTransformMakeTranslation(0, ScreenH * 0.7 + FQNAVIGATION_HEIGHT);
         self.coverView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     } completion:^(BOOL finished) {
     }];

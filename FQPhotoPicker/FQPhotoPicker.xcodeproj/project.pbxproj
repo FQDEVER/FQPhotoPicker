@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A4DEF1A472C0BD9A11051A7 /* libPods-FQPhotoPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB25961BC557D059CD6416A /* libPods-FQPhotoPicker.a */; };
 		9C14AAC52065FBE70063B352 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAC42065FBE70063B352 /* AppDelegate.m */; };
 		9C14AAC82065FBE70063B352 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAC72065FBE70063B352 /* ViewController.m */; };
 		9C14AACB2065FBE70063B352 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C14AAC92065FBE70063B352 /* Main.storyboard */; };
@@ -16,16 +17,6 @@
 		9C14AADD2065FBE70063B352 /* FQPhotoPickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AADC2065FBE70063B352 /* FQPhotoPickerTests.m */; };
 		9C14AAE82065FBE70063B352 /* FQPhotoPickerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C14AAE72065FBE70063B352 /* FQPhotoPickerUITests.m */; };
 		9C14AAFA2065FD230063B352 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C14AAF92065FD230063B352 /* Photos.framework */; };
-		9C45C5422068DEB700E736CA /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C52A2068DEB700E736CA /* MASCompositeConstraint.m */; };
-		9C45C5432068DEB700E736CA /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C52D2068DEB700E736CA /* MASConstraint.m */; };
-		9C45C5442068DEB700E736CA /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C52F2068DEB700E736CA /* MASConstraintMaker.m */; };
-		9C45C5452068DEB700E736CA /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5312068DEB700E736CA /* MASLayoutConstraint.m */; };
-		9C45C5462068DEB700E736CA /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5352068DEB700E736CA /* MASViewAttribute.m */; };
-		9C45C5472068DEB700E736CA /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5372068DEB700E736CA /* MASViewConstraint.m */; };
-		9C45C5482068DEB700E736CA /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5392068DEB700E736CA /* NSArray+MASAdditions.m */; };
-		9C45C5492068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C53C2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m */; };
-		9C45C54A2068DEB700E736CA /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C53E2068DEB700E736CA /* View+MASAdditions.m */; };
-		9C45C54B2068DEB700E736CA /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C45C5412068DEB700E736CA /* ViewController+MASAdditions.m */; };
 		9C5B844D206BA3F1003A7336 /* FQAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B8438206BA3F1003A7336 /* FQAsset.m */; };
 		9C5B844E206BA3F1003A7336 /* FQImagePickerCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B843A206BA3F1003A7336 /* FQImagePickerCollectionCell.m */; };
 		9C5B844F206BA3F1003A7336 /* FQImagePickerContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C5B843C206BA3F1003A7336 /* FQImagePickerContainer.m */; };
@@ -57,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44C20233381D6E7B30E3AF4C /* Pods-FQPhotoPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FQPhotoPicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-FQPhotoPicker/Pods-FQPhotoPicker.release.xcconfig"; sourceTree = "<group>"; };
 		9C14AAC02065FBE70063B352 /* FQPhotoPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FQPhotoPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C14AAC32065FBE70063B352 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9C14AAC42065FBE70063B352 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -74,31 +66,6 @@
 		9C14AAE72065FBE70063B352 /* FQPhotoPickerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FQPhotoPickerUITests.m; sourceTree = "<group>"; };
 		9C14AAE92065FBE70063B352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C14AAF92065FD230063B352 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		9C45C5292068DEB700E736CA /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
-		9C45C52A2068DEB700E736CA /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
-		9C45C52B2068DEB700E736CA /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
-		9C45C52C2068DEB700E736CA /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
-		9C45C52D2068DEB700E736CA /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
-		9C45C52E2068DEB700E736CA /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
-		9C45C52F2068DEB700E736CA /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
-		9C45C5302068DEB700E736CA /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
-		9C45C5312068DEB700E736CA /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
-		9C45C5322068DEB700E736CA /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
-		9C45C5332068DEB700E736CA /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
-		9C45C5342068DEB700E736CA /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
-		9C45C5352068DEB700E736CA /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
-		9C45C5362068DEB700E736CA /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
-		9C45C5372068DEB700E736CA /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
-		9C45C5382068DEB700E736CA /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		9C45C5392068DEB700E736CA /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		9C45C53A2068DEB700E736CA /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		9C45C53B2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		9C45C53C2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
-		9C45C53D2068DEB700E736CA /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
-		9C45C53E2068DEB700E736CA /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
-		9C45C53F2068DEB700E736CA /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		9C45C5402068DEB700E736CA /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		9C45C5412068DEB700E736CA /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		9C5B8437206BA3F1003A7336 /* FQAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQAsset.h; sourceTree = "<group>"; };
 		9C5B8438206BA3F1003A7336 /* FQAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQAsset.m; sourceTree = "<group>"; };
 		9C5B8439206BA3F1003A7336 /* FQImagePickerCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQImagePickerCollectionCell.h; sourceTree = "<group>"; };
@@ -121,6 +88,8 @@
 		9C5B844A206BA3F1003A7336 /* FQImagePreviewVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQImagePreviewVc.m; sourceTree = "<group>"; };
 		9C5B844B206BA3F1003A7336 /* FQVideoStreamCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQVideoStreamCollectionCell.h; sourceTree = "<group>"; };
 		9C5B844C206BA3F1003A7336 /* FQVideoStreamCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQVideoStreamCollectionCell.m; sourceTree = "<group>"; };
+		AAB25961BC557D059CD6416A /* libPods-FQPhotoPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FQPhotoPicker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECC0348E0A0D9B137F7BB166 /* Pods-FQPhotoPicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FQPhotoPicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FQPhotoPicker/Pods-FQPhotoPicker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C14AAFA2065FD230063B352 /* Photos.framework in Frameworks */,
+				1A4DEF1A472C0BD9A11051A7 /* libPods-FQPhotoPicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +127,7 @@
 				9C14AAE62065FBE70063B352 /* FQPhotoPickerUITests */,
 				9C14AAC12065FBE70063B352 /* Products */,
 				9C14AAF82065FD220063B352 /* Frameworks */,
+				B8673D6CCDE301FD14A40845 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -173,7 +144,6 @@
 		9C14AAC22065FBE70063B352 /* FQPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
-				9C45C5282068DEB700E736CA /* Masonry */,
 				9C5B8436206BA3F1003A7336 /* FQImagePickerVC */,
 				9C14AAC32065FBE70063B352 /* AppDelegate.h */,
 				9C14AAC42065FBE70063B352 /* AppDelegate.m */,
@@ -210,40 +180,9 @@
 			isa = PBXGroup;
 			children = (
 				9C14AAF92065FD230063B352 /* Photos.framework */,
+				AAB25961BC557D059CD6416A /* libPods-FQPhotoPicker.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9C45C5282068DEB700E736CA /* Masonry */ = {
-			isa = PBXGroup;
-			children = (
-				9C45C5292068DEB700E736CA /* MASCompositeConstraint.h */,
-				9C45C52A2068DEB700E736CA /* MASCompositeConstraint.m */,
-				9C45C52B2068DEB700E736CA /* MASConstraint+Private.h */,
-				9C45C52C2068DEB700E736CA /* MASConstraint.h */,
-				9C45C52D2068DEB700E736CA /* MASConstraint.m */,
-				9C45C52E2068DEB700E736CA /* MASConstraintMaker.h */,
-				9C45C52F2068DEB700E736CA /* MASConstraintMaker.m */,
-				9C45C5302068DEB700E736CA /* MASLayoutConstraint.h */,
-				9C45C5312068DEB700E736CA /* MASLayoutConstraint.m */,
-				9C45C5322068DEB700E736CA /* Masonry.h */,
-				9C45C5332068DEB700E736CA /* MASUtilities.h */,
-				9C45C5342068DEB700E736CA /* MASViewAttribute.h */,
-				9C45C5352068DEB700E736CA /* MASViewAttribute.m */,
-				9C45C5362068DEB700E736CA /* MASViewConstraint.h */,
-				9C45C5372068DEB700E736CA /* MASViewConstraint.m */,
-				9C45C5382068DEB700E736CA /* NSArray+MASAdditions.h */,
-				9C45C5392068DEB700E736CA /* NSArray+MASAdditions.m */,
-				9C45C53A2068DEB700E736CA /* NSArray+MASShorthandAdditions.h */,
-				9C45C53B2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.h */,
-				9C45C53C2068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m */,
-				9C45C53D2068DEB700E736CA /* View+MASAdditions.h */,
-				9C45C53E2068DEB700E736CA /* View+MASAdditions.m */,
-				9C45C53F2068DEB700E736CA /* View+MASShorthandAdditions.h */,
-				9C45C5402068DEB700E736CA /* ViewController+MASAdditions.h */,
-				9C45C5412068DEB700E736CA /* ViewController+MASAdditions.m */,
-			);
-			path = Masonry;
 			sourceTree = "<group>";
 		};
 		9C5B8436206BA3F1003A7336 /* FQImagePickerVC */ = {
@@ -275,6 +214,15 @@
 			path = FQImagePickerVC;
 			sourceTree = "<group>";
 		};
+		B8673D6CCDE301FD14A40845 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ECC0348E0A0D9B137F7BB166 /* Pods-FQPhotoPicker.debug.xcconfig */,
+				44C20233381D6E7B30E3AF4C /* Pods-FQPhotoPicker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,6 +230,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C14AAEC2065FBE70063B352 /* Build configuration list for PBXNativeTarget "FQPhotoPicker" */;
 			buildPhases = (
+				26F043C6DEFA06F44996D067 /* [CP] Check Pods Manifest.lock */,
 				9C14AABC2065FBE70063B352 /* Sources */,
 				9C14AABD2065FBE70063B352 /* Frameworks */,
 				9C14AABE2065FBE70063B352 /* Resources */,
@@ -403,34 +352,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		26F043C6DEFA06F44996D067 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FQPhotoPicker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9C14AABC2065FBE70063B352 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C45C54A2068DEB700E736CA /* View+MASAdditions.m in Sources */,
 				9C5B8451206BA3F1003A7336 /* FQImagePickerTitleBtn.m in Sources */,
 				9C5B8452206BA3F1003A7336 /* FQImagePickerTitleTableCell.m in Sources */,
 				9C14AAC82065FBE70063B352 /* ViewController.m in Sources */,
 				9C5B844D206BA3F1003A7336 /* FQAsset.m in Sources */,
 				9C14AAD32065FBE70063B352 /* main.m in Sources */,
-				9C45C54B2068DEB700E736CA /* ViewController+MASAdditions.m in Sources */,
-				9C45C5462068DEB700E736CA /* MASViewAttribute.m in Sources */,
-				9C45C5422068DEB700E736CA /* MASCompositeConstraint.m in Sources */,
 				9C5B8455206BA3F1003A7336 /* FQImagePreviewCell.m in Sources */,
 				9C14AAC52065FBE70063B352 /* AppDelegate.m in Sources */,
 				9C5B8450206BA3F1003A7336 /* FQImagePickerService.m in Sources */,
 				9C5B844E206BA3F1003A7336 /* FQImagePickerCollectionCell.m in Sources */,
 				9C5B844F206BA3F1003A7336 /* FQImagePickerContainer.m in Sources */,
-				9C45C5442068DEB700E736CA /* MASConstraintMaker.m in Sources */,
 				9C5B8457206BA3F1003A7336 /* FQVideoStreamCollectionCell.m in Sources */,
-				9C45C5432068DEB700E736CA /* MASConstraint.m in Sources */,
-				9C45C5492068DEB700E736CA /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
-				9C45C5452068DEB700E736CA /* MASLayoutConstraint.m in Sources */,
 				9C5B8456206BA3F1003A7336 /* FQImagePreviewVc.m in Sources */,
-				9C45C5482068DEB700E736CA /* NSArray+MASAdditions.m in Sources */,
 				9C5B8454206BA3F1003A7336 /* FQImagePickerVc.m in Sources */,
-				9C45C5472068DEB700E736CA /* MASViewConstraint.m in Sources */,
 				9C5B8453206BA3F1003A7336 /* FQImagePickerTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -592,6 +552,7 @@
 		};
 		9C14AAED2065FBE70063B352 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECC0348E0A0D9B137F7BB166 /* Pods-FQPhotoPicker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -607,6 +568,7 @@
 		};
 		9C14AAEE2065FBE70063B352 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44C20233381D6E7B30E3AF4C /* Pods-FQPhotoPicker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

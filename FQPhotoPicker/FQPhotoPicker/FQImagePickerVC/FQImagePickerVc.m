@@ -12,14 +12,11 @@
 #import "FQVideoStreamCollectionCell.h"
 #import "FQImagePickerTitleView.h"
 #import "FQImagePickerTitleBtn.h"
-#import "Masonry.h"
 #import "FQImagePickerContainer.h"
 #import "FQImagePreviewVc.h"
-
-// 渐变蓝按钮开始的颜色
-#define COLOR_BLUE_BUTTON_START [UIColor colorWithRed:0.00 green:0.45 blue:0.98 alpha:1.00]
-// 渐变蓝按钮结束的颜色
-#define COLOR_BLUE_BUTTON_END [UIColor colorWithRed:0.13 green:0.65 blue:0.99 alpha:1.00]
+#import <YYKit.h>
+#import <Masonry.h>
+#import <MBProgressHUD.h>
 
 @interface FQImagePickerVc ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -83,7 +80,7 @@
     tipBtn.titleLabel.numberOfLines = 2;
     tipBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [tipBtn setTitle:@"相册权限未开启，请在设置中选择当前应用,开启相册功能 \n 点击去设置" forState:UIControlStateNormal];
-    tipBtn.frame = CGRectMake(0, NAVIGATION_HEIGHT, ScreenW, 50);
+    tipBtn.frame = CGRectMake(0, FQNAVIGATION_HEIGHT, ScreenW, 50);
     tipBtn.backgroundColor = [UIColor grayColor];
     [self.view addSubview:tipBtn];
     [self.view bringSubviewToFront:tipBtn];
@@ -123,14 +120,14 @@
         [self.view addSubview:self.confirmBtn];
         [self.confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.offset(0);
-            make.height.equalTo(@(50 + TABBAR_BOTTOM_SPACING));
+            make.height.equalTo(@(50 + FQTABBAR_BOTTOM_SPACING));
         }];
     }
     
     [self.view addSubview:self.collectionView];
     __weak typeof(self)weakSelf = self;
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(NAVIGATION_HEIGHT);
+        make.top.offset(FQNAVIGATION_HEIGHT);
         make.left.right.offset(0);
         weakSelf.isScanCode ? make.bottom.offset(0):make.bottom.equalTo(weakSelf.confirmBtn.mas_top).offset(0);
     }];
@@ -347,7 +344,7 @@
         [self presentViewController:imgPickerVc animated:YES completion:nil];
     }else{
         if (self.isScanCode) {//选中一个返回
-            MBProgressHUD * hud = [JTHUDTool showHUDOnlyActivityIndicatorOnView:self.view hiddenAfterDelay:0];
+            MBProgressHUD * hud = [self showHUDOnlyActivityIndicatorOnView:self.view hiddenAfterDelay:0];
             //处理单张回调图
             if (asset.isOrgin) {
                 if (_selectScanCodeImgBlock) {
@@ -378,6 +375,45 @@
         [self.navigationController pushViewController:previewVc animated:YES];
     }
     
+}
+
+#pragma mark - HUD
+
+/**
+ 在view 上显示转圈
+ 
+ @param view 目标 view
+ @param delayTime 延迟消失时间.不添加可自己回调手动隐藏
+ @return hud对象
+ */
+-(MBProgressHUD *)showHUDOnlyActivityIndicatorOnView:(UIView *)view hiddenAfterDelay:(CGFloat)delayTime
+{
+    UIView *showView = nil;
+    if (view == nil)
+    {
+        showView = [UIApplication sharedApplication].keyWindow;
+    }
+    else
+    {
+        showView = view;
+    }
+    
+    MBProgressHUD *oldHud = [MBProgressHUD HUDForView:showView];
+    [oldHud hideAnimated:NO];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
+    hud.contentColor = [UIColor whiteColor];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.animationType = MBProgressHUDAnimationZoom;
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.removeFromSuperViewOnHide = YES;
+    hud.square = NO;
+    
+    if (delayTime) {
+        [hud hideAnimated:YES afterDelay:delayTime];
+    }
+    
+    return hud;
 }
 
 #pragma mark =================>系统相机
@@ -523,7 +559,7 @@
         
         [button setTitle:[FQImagePickerService getAllPhotosStr] forState:UIControlStateNormal];
         
-        button.titleLabel.font = FONT_SIZE_15;
+        button.titleLabel.font = [UIFont systemFontOfSize:15];
         
         [button addTarget:self action:@selector(clickTitleView) forControlEvents:UIControlEventTouchUpInside];
         
@@ -564,14 +600,14 @@
 {
     if (!_confirmBtn) {
         _confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_confirmBtn setBackgroundImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_CONFIRM_NORMAL_ICON] forState:UIControlStateDisabled];
-        [_confirmBtn setBackgroundImage:[UIImage imageNamed:IMAGE_NAME_SOCIAL_RELEASE_CONFIRM_SELECT_ICON] forState:UIControlStateNormal];
+        [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_confirm_normal_icon"] forState:UIControlStateDisabled];
+        [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_confirm_select_icon"] forState:UIControlStateNormal];
         _confirmBtn.enabled = NO;
         _confirmBtn.backgroundColor = [UIColor whiteColor];
         [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
-        _confirmBtn.titleLabel.font = FONT_SIZE_14;
+        _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        if (KIsiPhoneX) {
+        if (FQIS_IPHONE_X) {
             _confirmBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 20, 0);
         }
         [_confirmBtn addTarget:self action:@selector(clickConfirmBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -586,7 +622,7 @@
         [previewBtn addTarget:self action:@selector(clickPreviewBtn:) forControlEvents:UIControlEventTouchUpInside];
         [previewBtn setTitle:@"预览" forState:UIControlStateNormal];
         [previewBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        previewBtn.titleLabel.font = FONT_SIZE_14;
+        previewBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         previewBtn.frame = CGRectMake(0, 0, 40, 33);
         previewBtn.userInteractionEnabled = [[FQImagePickerContainer share] getSelectAssetArr].count ? YES : NO;
         _previewBtn = previewBtn;
@@ -601,7 +637,7 @@
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(clickCancelBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _cancelBtn.titleLabel.font = FONT_SIZE_14;
+        _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         _cancelBtn.frame = CGRectMake(0, 0, 40, 33);
         
     }
@@ -614,7 +650,6 @@
     //清空数据
     [[FQImagePickerContainer share] clearSelectCellArr];
     [[FQImagePickerService share] clearDataArr];
-    FQLog(@"-----------相册控件已经销毁");
 }
 
 - (void)didReceiveMemoryWarning {
