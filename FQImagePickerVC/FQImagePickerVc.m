@@ -14,9 +14,9 @@
 #import "FQImagePickerTitleBtn.h"
 #import "FQImagePickerContainer.h"
 #import "FQImagePreviewVc.h"
-#import <YYKit.h>
-#import <Masonry.h>
-#import <MBProgressHUD.h>
+#import <YYKit/YYKit.h>
+#import <Masonry/Masonry.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface FQImagePickerVc ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 

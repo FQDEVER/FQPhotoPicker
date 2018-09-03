@@ -7,8 +7,8 @@
 //
 
 #import "FQImagePreviewCell.h"
-#import <Masonry.h>
-#import <YYKit.h>
+#import <Masonry/Masonry.h>
+#import <YYKit/YYKit.h>
 #import "FQAsset.h"
 
 @interface FQImagePreviewCell()<UIScrollViewDelegate>

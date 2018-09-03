@@ -8,7 +8,7 @@
 
 #import "FQImagePickerTitleView.h"
 #import "FQImagePickerTitleTableCell.h"
-#import <Masonry.h>
+#import <Masonry/Masonry.h>
 #import "FQAsset.h"
 
 @interface FQImagePickerTitleView()<UITableViewDelegate,UITableViewDataSource>

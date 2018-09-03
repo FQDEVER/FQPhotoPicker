@@ -7,7 +7,7 @@
 //
 
 #import "FQAsset.h"
-#import <YYKit.h>
+#import <YYKit/YYKit.h>
 #define screenScale [UIScreen mainScreen].scale
 
 @interface FQAsset()

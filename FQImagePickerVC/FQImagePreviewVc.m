@@ -8,8 +8,8 @@
 
 #import "FQImagePreviewVc.h"
 #import "FQAsset.h"
-#import <Masonry.h>
-#import <YYKit.h>
+#import <Masonry/Masonry.h>
+#import <YYKit/YYKit.h>
 #import "FQImagePreviewCell.h"
 #import "FQImagePickerContainer.h"
 

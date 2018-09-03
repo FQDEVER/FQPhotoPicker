@@ -8,8 +8,8 @@
 
 #import "FQImagePickerCollectionCell.h"
 #import "FQImagePickerContainer.h"
-#import <Masonry.h>
-#import <YYKit.h>
+#import <Masonry/Masonry.h>
+#import <YYKit/YYKit.h>
 
 @interface FQImagePickerCollectionCell()
 

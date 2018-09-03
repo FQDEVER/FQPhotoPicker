@@ -7,7 +7,7 @@
 //
 
 #import "FQImagePickerTitleTableCell.h"
-#import <Masonry.h>
+#import <Masonry/Masonry.h>
 #import "FQAsset.h"
 #import "FQImagePickerService.h"
 
