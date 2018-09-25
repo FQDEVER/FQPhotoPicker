@@ -16,6 +16,9 @@
 @interface FQImagePreviewVc ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
     BOOL _statusBarStyleControl;
+    BOOL _leaveStatusBarAlone;
+    BOOL _statusBarShouldBeHidden;
+    BOOL _previousStatusBarStyle;
 }
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -26,7 +29,7 @@
 
 @property (nonatomic, strong) UIButton *selectBtn;
 
-@property (nonatomic, strong) UIView *bottomView;
+@property (nonatomic, strong) UIToolbar *bottomView;
 
 /**
  原图按钮
@@ -44,9 +47,11 @@
 @property (nonatomic, strong) NSMutableArray *tempAssetArr;
 
 //顶部容器
-@property (nonatomic, strong) UIView *topContainer;
+//@property (nonatomic, strong) UIView *topContainer;
+//
+//@property (nonatomic, strong) UIView *topContainerContentView;
 
-@property (nonatomic, strong) UIView *topContainerContentView;
+@property (nonatomic, assign) BOOL isShowToolBar;
 
 @property (nonatomic, strong) UILabel *topTitleLabel;
 
@@ -57,7 +62,11 @@
 @implementation FQImagePreviewVc
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    if (!_leaveStatusBarAlone) {
+        return _statusBarShouldBeHidden;
+    } else {
+        return [self presentingViewControllerPrefersStatusBarHidden];
+    }
 }
 
 - (void)viewDidLoad {
@@ -65,11 +74,10 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationController.navigationBar.hidden = YES;
+    //    self.navigationController.navigationBar.hidden = YES;
+    self.isShowToolBar = YES;
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    
-    //    self.isHiddenOrginBtn = YES;
     if (@available(iOS 11.0, *)) {
         
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -92,12 +100,6 @@
         make.height.equalTo(@(44 + FQTABBAR_BOTTOM_SPACING));
     }];
     
-    [self.view addSubview:self.topContainer];
-    [self.topContainer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.offset(0);
-        make.height.mas_equalTo(FQNAVIGATION_HEIGHT);
-    }];
-    
     [self addBarButtonItem];
     
     self.topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
@@ -105,6 +107,68 @@
     self.finishBtn.hidden = [[FQImagePickerContainer share]getSelectAssetArr].count == 0;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    // Super
+    [super viewWillAppear:animated];
+    
+    // Status bar
+    
+    _leaveStatusBarAlone = [self presentingViewControllerPrefersStatusBarHidden];
+    // Check if status bar is hidden on first appear, and if so then ignore it
+    if (CGRectEqualToRect([[UIApplication sharedApplication] statusBarFrame], CGRectZero)) {
+        _leaveStatusBarAlone = YES;
+    }
+    
+    // Set style
+    if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        _previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
+    }
+    
+    [self setNavBarAppearance:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    // Status bar
+    if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [[UIApplication sharedApplication] setStatusBarStyle:_previousStatusBarStyle animated:animated];
+    }
+    [super viewWillDisappear:animated];
+}
+
+
+- (BOOL)presentingViewControllerPrefersStatusBarHidden {
+    UIViewController *presenting = self.presentingViewController;
+    if (presenting) {
+        if ([presenting isKindOfClass:[UINavigationController class]]) {
+            presenting = [(UINavigationController *)presenting topViewController];
+        }
+    } else {
+        // We're in a navigation controller so get previous one!
+        if (self.navigationController && self.navigationController.viewControllers.count > 1) {
+            presenting = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
+        }
+    }
+    if (presenting) {
+        return [presenting prefersStatusBarHidden];
+    } else {
+        return NO;
+    }
+}
+
+- (void)setNavBarAppearance:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    navBar.tintColor = [UIColor whiteColor];
+    navBar.barTintColor = nil;
+    navBar.shadowImage = nil;
+    navBar.translucent = YES;
+    navBar.barStyle = UIBarStyleBlackTranslucent;
+    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
+}
 
 -(void)addBarButtonItem{
     
@@ -113,14 +177,9 @@
     [cancelBtn setTitle:@"返回" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:[UIView new]];
-    [self.topContainerContentView addSubview:cancelBtn];
-    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.offset(-12);
-        make.left.offset(20);
-        make.width.height.mas_equalTo(40);
-    }];
+    cancelBtn.frame = CGRectMake(0, 0, 40, 40);
     
+
     //右边就是选中或者取消按钮
     FQAsset * selectAsset = self.assetDataArr[self.selectIndex];
     self.selectBtn = [[UIButton alloc]init];
@@ -131,19 +190,11 @@
     [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_select_new" inBundle:MYBUNDLE compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
     self.selectBtn.frame = CGRectMake(0, 0 , 25, 25);
     [self.selectBtn addTarget:self action:@selector(clickSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
-    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.selectBtn];
-    [self.topContainerContentView addSubview:self.selectBtn];
-    [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(cancelBtn.mas_centerY);
-        make.right.offset(-20);
-        make.height.width.mas_equalTo(25);
-    }];
     
-    [self.topContainerContentView addSubview:self.topTitleLabel];
-    [self.topTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(cancelBtn.mas_centerY);
-        make.centerX.equalTo(self.topContainer.mas_centerX);
-    }];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:cancelBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.selectBtn];
+    [_topTitleLabel sizeToFit];
+    self.navigationItem.titleView = self.topTitleLabel;
     
     self.collectionView.contentSize = CGSizeMake(ScreenW * self.assetDataArr.count, 0);
     [self.collectionView setContentOffset:CGPointMake((CGFloat)self.selectIndex * ScreenW, 0)];
@@ -248,7 +299,7 @@
 
 /**
  点击完成按钮
-
+ 
  @param sender 完成按钮
  */
 -(void)clickFinishBtn:(UIButton *)sender{
@@ -265,7 +316,7 @@
     if (_selectAssetArrBlock) {
         _selectAssetArrBlock([[FQImagePickerContainer share] getSelectAssetArr]);
     }
-
+    
     if (self.isReleasePreview) {
         self.navigationController.navigationBar.hidden = NO;
         self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
@@ -273,7 +324,7 @@
             _changPreviewBlock(self.tempAssetArr.copy);
         }
         [self.navigationController popViewControllerAnimated:YES];
-    
+        
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -329,6 +380,7 @@
 {
     _selectIndex = selectIndex;
     self.topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
+    [_topTitleLabel sizeToFit];
     FQAsset * selectAsset = self.assetDataArr[_selectIndex];
     self.selectBtn.selected = selectAsset.isSelect;
     [self.selectBtn setTitle:[NSString stringWithFormat:@"%zd",selectAsset.selectIndex] forState:UIControlStateSelected];
@@ -349,36 +401,37 @@
 
 -(void)showOrHiddenCoverView
 {
-    
-    if (!_isHiddenOrginBtn) { //如果不是发布
-        if (self.bottomView.hidden) {
-            self.bottomView.hidden = NO;
-            [UIView animateWithDuration:0.33 animations:^{
-                self.bottomView.transform = CGAffineTransformIdentity;
-                self.topContainer.transform = CGAffineTransformIdentity;
-            }];
-        }else{
-            [UIView animateWithDuration:0.33 animations:^{
-                self.bottomView.transform = CGAffineTransformMakeTranslation(0, 44);
-                self.topContainer.transform = CGAffineTransformMakeTranslation(0, FQNAVIGATION_HEIGHT);
-            }completion:^(BOOL finished) {
-                self.bottomView.hidden = YES;
-            }];
+    if (!self.isShowToolBar) {
+        if (!_leaveStatusBarAlone) {
+            _statusBarShouldBeHidden = NO;
         }
-    }
-    
-    if (self.topContainer.hidden) {
-        self.topContainer.hidden = NO;
         [UIView animateWithDuration:0.33 animations:^{
-            self.topContainer.transform = CGAffineTransformIdentity;
+            if (!_isHiddenOrginBtn) {
+                self.bottomView.transform = CGAffineTransformIdentity;
+                self.bottomView.alpha = 1.0f;
+            }
+            if (!_leaveStatusBarAlone) {
+                [self setNeedsStatusBarAppearanceUpdate];
+                // Nav bar slides up on it's own on iOS 7+
+                [self.navigationController.navigationBar setAlpha:1.0];
+            }
         }];
     }else{
+        if (!_leaveStatusBarAlone) {
+            _statusBarShouldBeHidden = YES;
+        }
         [UIView animateWithDuration:0.33 animations:^{
-            self.topContainer.transform = CGAffineTransformMakeTranslation(0, -FQNAVIGATION_HEIGHT);
-        }completion:^(BOOL finished) {
-            self.topContainer.hidden = YES;
+            if (!_isHiddenOrginBtn) {
+                self.bottomView.transform = CGAffineTransformMakeTranslation(0, 44);
+                self.bottomView.alpha = 0.0f;
+            }
+            if (!_leaveStatusBarAlone) {
+                [self setNeedsStatusBarAppearanceUpdate];
+                [self.navigationController.navigationBar setAlpha:0.0];
+            }
         }];
     }
+    self.isShowToolBar = !self.isShowToolBar;
 }
 
 
@@ -444,12 +497,19 @@
     return _collectionView;
 }
 
--(UIView *)bottomView
+-(UIToolbar *)bottomView
 {
     if (!_bottomView) {
-        _bottomView = [[UIView alloc]init];
-        _bottomView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
+        _bottomView = [[UIToolbar alloc]init];
+        //        _bottomView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
         //添加一个原图按钮
+        
+        _bottomView.tintColor = [UIColor whiteColor];
+        _bottomView.barTintColor = nil;
+        [_bottomView setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        [_bottomView setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsCompact];
+        _bottomView.barStyle = UIBarStyleBlackTranslucent;
+        _bottomView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         
         [_bottomView addSubview:self.orginImgBtn];
         [_bottomView addSubview:self.finishBtn];
@@ -524,39 +584,6 @@
         _tempAssetArr = [NSMutableArray array];
     }
     return _tempAssetArr;
-}
-
--(UIView *)topContainer
-{
-    if (!_topContainer) {
-        _topContainer = [[UIView alloc]init];
-        
-        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        UIVisualEffectView *backEffectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-        [backEffectView.contentView addSubview:self.topContainerContentView];
-        [_topContainer addSubview:backEffectView];
-        
-        [_topContainer addSubview:self.topContainerContentView];
-        [self.topContainerContentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.bottom.offset(0);
-        }];
-        
-        [backEffectView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.bottom.offset(0);
-        }];
-        
-        _topContainer.frame = CGRectMake(0, 0, ScreenW, ScreenH);
-        
-    }
-    return _topContainer;
-}
-
--(UIView *)topContainerContentView
-{
-    if (!_topContainerContentView) {
-        _topContainerContentView = [[UIView alloc]init];
-    }
-    return _topContainerContentView;
 }
 
 -(UILabel *)topTitleLabel

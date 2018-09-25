@@ -37,7 +37,7 @@
 - (void)setup {
     
     self.frame = [UIScreen mainScreen].bounds;
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickTapGesture)];
     [self addGestureRecognizer:singleTap];
