@@ -46,13 +46,9 @@
 
 @property (nonatomic, strong) NSMutableArray *tempAssetArr;
 
-//顶部容器
-//@property (nonatomic, strong) UIView *topContainer;
-//
-//@property (nonatomic, strong) UIView *topContainerContentView;
-
+//是否显示toolBar
 @property (nonatomic, assign) BOOL isShowToolBar;
-
+//顶部X/X标签
 @property (nonatomic, strong) UILabel *topTitleLabel;
 
 @end
