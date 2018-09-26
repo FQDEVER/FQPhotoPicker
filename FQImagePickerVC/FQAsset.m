@@ -107,6 +107,11 @@
 //异步获取缩略图
 -(void)fetchThumbImageWithSize:(CGSize)size completion:(void(^)(UIImage * ,NSDictionary *))completion
 {
+    self.isGif = [[self.asset valueForKey:@"filename"] containsString:@".GIF"];
+    if (_imgSize == 0) {
+        [self getImageInfo];
+    }
+    
     if (_thumbImg) {
         if (completion) {
             completion(_thumbImg,nil);

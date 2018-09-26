@@ -45,10 +45,9 @@
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
 @property (nonatomic, strong) NSMutableArray *tempAssetArr;
-
 //是否显示toolBar
 @property (nonatomic, assign) BOOL isShowToolBar;
-//顶部X/X标签
+
 @property (nonatomic, strong) UILabel *topTitleLabel;
 
 @end
@@ -497,9 +496,6 @@
 {
     if (!_bottomView) {
         _bottomView = [[UIToolbar alloc]init];
-        //        _bottomView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
-        //添加一个原图按钮
-        
         _bottomView.tintColor = [UIColor whiteColor];
         _bottomView.barTintColor = nil;
         [_bottomView setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];

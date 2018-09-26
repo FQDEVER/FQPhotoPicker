@@ -120,9 +120,6 @@
 
 - (void)doubleTap:(UITapGestureRecognizer *)recognizer {
     
-    if (self.asset.isGif) {
-        return;
-    }
     if (self.scrollView.zoomScale > 1.0) {
         [self.scrollView setZoomScale:1.0 animated:YES];
     } else {
@@ -134,7 +131,6 @@
     }
 }
 
-
 -(void)setAsset:(FQAsset *)asset
 {
     _asset = asset;
@@ -144,6 +140,7 @@
     if (asset.isGif) {
         [asset fetchGIFImgWithCompletion:^(UIImage *gifImg, NSDictionary *dict) {
             weakSelf.imageView.image = gifImg;
+            [weakSelf resizeSubviewSize];
             weakSelf.progressLayer.hidden = YES;
         }progressBlock:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
             if (isnan(progress)) progress = 0;
