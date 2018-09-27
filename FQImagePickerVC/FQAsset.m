@@ -258,6 +258,7 @@
 -(void)setIsSelect:(BOOL)isSelect
 {
     _isSelect = isSelect;
+    [self fetchThumbImageWithSize:CGSizeMake(70, 70) completion:nil];
     if (_isSelect && _isOrgin) { //如果又是原图.又是选中状态.就获取原图
         [self fetchSourceImageWithCompletion:nil progressBlock:nil];
     }else if (_isSelect && !_isOrgin){

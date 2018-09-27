@@ -16,7 +16,6 @@
 @interface FQImagePreviewVc ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
     BOOL _statusBarStyleControl;
-    BOOL _leaveStatusBarAlone;
     BOOL _statusBarShouldBeHidden;
     BOOL _previousStatusBarStyle;
 }
@@ -29,7 +28,7 @@
 
 @property (nonatomic, strong) UIButton *selectBtn;
 
-@property (nonatomic, strong) UIToolbar *bottomView;
+@property (nonatomic, strong) UIView *bottomView;
 
 /**
  原图按钮
@@ -57,19 +56,24 @@
 @implementation FQImagePreviewVc
 
 - (BOOL)prefersStatusBarHidden {
-    if (!_leaveStatusBarAlone) {
-        return _statusBarShouldBeHidden;
-    } else {
-        return [self presentingViewControllerPrefersStatusBarHidden];
-    }
+    return _statusBarShouldBeHidden;
 }
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationSlide;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //    self.navigationController.navigationBar.hidden = YES;
     self.isShowToolBar = YES;
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
@@ -106,17 +110,9 @@
     
     // Super
     [super viewWillAppear:animated];
-    
-    // Status bar
-    
-    _leaveStatusBarAlone = [self presentingViewControllerPrefersStatusBarHidden];
-    // Check if status bar is hidden on first appear, and if so then ignore it
-    if (CGRectEqualToRect([[UIApplication sharedApplication] statusBarFrame], CGRectZero)) {
-        _leaveStatusBarAlone = YES;
-    }
-    
+
     // Set style
-    if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
     }
@@ -127,31 +123,12 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     // Status bar
-    if (!_leaveStatusBarAlone && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [[UIApplication sharedApplication] setStatusBarStyle:_previousStatusBarStyle animated:animated];
     }
     [super viewWillDisappear:animated];
 }
 
-
-- (BOOL)presentingViewControllerPrefersStatusBarHidden {
-    UIViewController *presenting = self.presentingViewController;
-    if (presenting) {
-        if ([presenting isKindOfClass:[UINavigationController class]]) {
-            presenting = [(UINavigationController *)presenting topViewController];
-        }
-    } else {
-        // We're in a navigation controller so get previous one!
-        if (self.navigationController && self.navigationController.viewControllers.count > 1) {
-            presenting = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
-        }
-    }
-    if (presenting) {
-        return [presenting prefersStatusBarHidden];
-    } else {
-        return NO;
-    }
-}
 
 - (void)setNavBarAppearance:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
@@ -283,12 +260,16 @@
                 if ([currentAsset isEqual:asset]) {
                     [sender setTitle:[NSString stringWithFormat:@"原图 (%@)",imgSizeStr] forState:UIControlStateNormal];
                 }
+                [weakSelf.orginImgBtn sizeToFit];
+                weakSelf.orginImgBtn.height = 44;
                 [weakSelf.indicatorView stopAnimating];
             });
         }];
     }else{
         selectAsset.isOrgin = NO;
         [sender setTitle:@"原图" forState:UIControlStateNormal];
+        [self.orginImgBtn sizeToFit];
+        self.orginImgBtn.height = 44;
     }
 }
 
@@ -386,47 +367,43 @@
         [selectAsset getOrginImgSize:^(NSString *imgSizeStr,FQAsset *asset) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.orginImgBtn setTitle:[NSString stringWithFormat:@"原图 (%@)",imgSizeStr] forState:UIControlStateNormal];
+                [weakSelf.orginImgBtn sizeToFit];
+                weakSelf.orginImgBtn.height = 44;
             });
         }];
     }else{
         self.orginImgBtn.selected = NO;
         [self.orginImgBtn setTitle:@"原图" forState:UIControlStateNormal];
+        [self.orginImgBtn sizeToFit];
+        self.orginImgBtn.height = 44;
     }
 }
 
 -(void)showOrHiddenCoverView
 {
-    if (!self.isShowToolBar) {
-        if (!_leaveStatusBarAlone) {
-            _statusBarShouldBeHidden = NO;
-        }
-        [UIView animateWithDuration:0.33 animations:^{
-            if (!_isHiddenOrginBtn) {
-                self.bottomView.transform = CGAffineTransformIdentity;
-                self.bottomView.alpha = 1.0f;
-            }
-            if (!_leaveStatusBarAlone) {
-                [self setNeedsStatusBarAppearanceUpdate];
-                // Nav bar slides up on it's own on iOS 7+
-                [self.navigationController.navigationBar setAlpha:1.0];
-            }
-        }];
-    }else{
-        if (!_leaveStatusBarAlone) {
-            _statusBarShouldBeHidden = YES;
-        }
-        [UIView animateWithDuration:0.33 animations:^{
-            if (!_isHiddenOrginBtn) {
-                self.bottomView.transform = CGAffineTransformMakeTranslation(0, 44);
-                self.bottomView.alpha = 0.0f;
-            }
-            if (!_leaveStatusBarAlone) {
-                [self setNeedsStatusBarAppearanceUpdate];
-                [self.navigationController.navigationBar setAlpha:0.0];
-            }
-        }];
-    }
+    _statusBarShouldBeHidden = self.isShowToolBar;
     self.isShowToolBar = !self.isShowToolBar;
+    [self toggleStatusBarAndNavBar:!self.isShowToolBar];
+}
+
+
+- (void)toggleStatusBarAndNavBar:(BOOL)hidden {
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        // 先显示navigationBar
+        if (!_isHiddenOrginBtn) {
+            self.bottomView.transform = !hidden ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, 44);
+            self.bottomView.alpha = !hidden ? 1.0f : 0.0f;
+        }
+        navBar.frame = CGRectMake(navBar.frame.origin.x,
+                                  hidden ? -navBar.frame.size.height : (FQIS_IPHONE_X ? 34 : 20),
+                                  navBar.frame.size.width,
+                                  navBar.frame.size.height);
+        [self setNeedsStatusBarAppearanceUpdate];
+        [self.navigationController.navigationBar setAlpha:!hidden ? 1.0 : 0.0];
+    } completion:nil];
 }
 
 
@@ -463,11 +440,15 @@
         [selectAsset getOrginImgSize:^(NSString *imgSizeStr,FQAsset *asset) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.orginImgBtn setTitle:[NSString stringWithFormat:@"原图 (%@)",imgSizeStr] forState:UIControlStateNormal];
+                [weakSelf.orginImgBtn sizeToFit];
+                self.orginImgBtn.height = 44;
             });
         }];
     }else{
         self.orginImgBtn.selected = NO;
         [self.orginImgBtn setTitle:@"原图" forState:UIControlStateNormal];
+        [self.orginImgBtn sizeToFit];
+        self.orginImgBtn.height = 44;
     }
 }
 
@@ -492,28 +473,33 @@
     return _collectionView;
 }
 
--(UIToolbar *)bottomView
+-(UIView *)bottomView
 {
     if (!_bottomView) {
-        _bottomView = [[UIToolbar alloc]init];
-        _bottomView.tintColor = [UIColor whiteColor];
-        _bottomView.barTintColor = nil;
-        [_bottomView setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-        [_bottomView setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsCompact];
-        _bottomView.barStyle = UIBarStyleBlackTranslucent;
+        _bottomView = [[UIView alloc]init];
         _bottomView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        /*
+         毛玻璃的样式(枚举)
+         UIBlurEffectStyleExtraLight,
+         UIBlurEffectStyleLight,
+         UIBlurEffectStyleDark
+         */
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        effectView.frame = CGRectMake(0, 0, ScreenW, 44 + FQTABBAR_BOTTOM_SPACING);
+        [_bottomView addSubview:effectView];
         
         [_bottomView addSubview:self.orginImgBtn];
         [_bottomView addSubview:self.finishBtn];
-        
         [self.orginImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(20);
-            make.top.bottom.offset(0);
+            make.top.offset(0);
+            make.height.equalTo(@44);
         }];
         
         [self.finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.offset(-20);
-            make.centerY.offset(0);
+            make.centerY.equalTo(self.orginImgBtn.mas_centerY);
         }];
         
         self.orginImgBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -10);
@@ -521,9 +507,9 @@
         [_bottomView addSubview:self.indicatorView];
         [self.indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.orginImgBtn.mas_right).offset(20);
-            make.top.bottom.offset(0);
+            make.centerY.equalTo(self.orginImgBtn.mas_centerY);
         }];
-        
+
     }
     return _bottomView;
 }
@@ -565,6 +551,7 @@
     if (!_indicatorView) {
         _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         _indicatorView.hidesWhenStopped = YES;
+        _indicatorView.frame = CGRectMake(0, 0, 44, 44);
         [_indicatorView stopAnimating];
     }
     return _indicatorView;
