@@ -72,6 +72,9 @@
 //添加一个选中的索引
 @property (nonatomic, assign) NSInteger selectIndex;
 
+//更新asset数据
+-(void)setAssetWithFQAsset:(FQAsset *)asset;
+
 //同步获取原图
 -(UIImage *)getSourceImage;
 

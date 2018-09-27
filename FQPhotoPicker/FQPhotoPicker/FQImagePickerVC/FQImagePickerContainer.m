@@ -170,9 +170,7 @@ static FQImagePickerContainer *imgPickerContainer;
         NSInteger count = 0;
         for (FQAsset * selectAsset in selectArr) {
             if ([selectAsset.asset.localIdentifier isEqualToString:selectIndexAsset.asset.localIdentifier] && ![selectAsset isEqual:selectIndexAsset]) {
-                selectAsset.selectIndex = selectIndexAsset.selectIndex;
-                selectAsset.isSelect = selectIndexAsset.isSelect;
-                selectAsset.isOrgin = selectIndexAsset.isOrgin;
+                [selectAsset setAssetWithFQAsset:selectIndexAsset];
                 [dataMuArr addObject:selectAsset];
                 count = 1;
                 selectIndexAsset.selectIndex = 0;
