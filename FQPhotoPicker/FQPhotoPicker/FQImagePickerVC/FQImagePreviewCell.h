@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#define BUBBLE_DIAMETER     self.view.bounds.size.width
+#define BUBBLE_PADDING      30.0
+
 @class FQAsset;
 
 @interface FQImagePreviewCell : UICollectionViewCell
@@ -19,5 +22,15 @@
  恢复scroller状态
  */
 -(void)reStoreScrollerScale;
+
+@end
+
+@interface FQ_CollectionViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
+@interface FQ_CustomCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes
+
+@property (nonatomic, assign) CGFloat progress;
 
 @end

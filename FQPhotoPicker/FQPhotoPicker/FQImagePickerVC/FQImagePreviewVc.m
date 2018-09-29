@@ -26,6 +26,8 @@
 
 @property (nonatomic, assign) NSInteger selectIndex;
 
+@property (nonatomic, assign) NSInteger willDisplayIndex;
+
 @property (nonatomic, strong) UIButton *selectBtn;
 
 @property (nonatomic, strong) UIView *bottomView;
@@ -76,6 +78,8 @@
     
     self.isShowToolBar = YES;
     
+    self.willDisplayIndex = 10000;
+    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     if (@available(iOS 11.0, *)) {
         
@@ -88,9 +92,6 @@
     self.extendedLayoutIncludesOpaqueBars=YES;
     
     [self.view addSubview:self.collectionView];
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.top.offset(0);
-    }];
     
     //添加一个原图显示的view
     [self.view addSubview:self.bottomView];
@@ -104,6 +105,7 @@
     self.topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
     
     self.finishBtn.hidden = [[FQImagePickerContainer share]getSelectAssetArr].count == 0;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -151,7 +153,6 @@
     cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     cancelBtn.frame = CGRectMake(0, 0, 40, 40);
     
-
     //右边就是选中或者取消按钮
     FQAsset * selectAsset = self.assetDataArr[self.selectIndex];
     self.selectBtn = [[UIButton alloc]init];
@@ -168,8 +169,7 @@
     [_topTitleLabel sizeToFit];
     self.navigationItem.titleView = self.topTitleLabel;
     
-    self.collectionView.contentSize = CGSizeMake(ScreenW * self.assetDataArr.count, 0);
-    [self.collectionView setContentOffset:CGPointMake((CGFloat)self.selectIndex * ScreenW, 0)];
+    [self.collectionView setContentOffset:CGPointMake((CGFloat)self.selectIndex * (BUBBLE_DIAMETER + BUBBLE_PADDING), 0)];
 }
 
 -(void)clickBackBtn:(UIButton *)sender
@@ -322,34 +322,29 @@
     return cell;
 }
 
-
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
     //因为offset不是对象不能用点访问
     CGFloat contentX = targetContentOffset->x;
-    
+
     /*round：如果参数是小数，则求本身的四舍五入。
      ceil：如果参数是小数，则求最小的整数但不小于本身.
      floor：如果参数是小数，则求最大的整数但不大于本身.
-     
+
      Example:如何值是3.4的话，则
      3.4 -- round 3.000000
      -- ceil 4.000000
      -- floor 3.00000
      **/
-    
+
     //用四色五入 计算第几页
-    float pageFloat = contentX/ScreenW;
-    
+    float pageFloat = contentX/(BUBBLE_DIAMETER + BUBBLE_PADDING);
+
     NSInteger page = (int)round(pageFloat);
-    
-    targetContentOffset->x = page * ScreenW;
-    
     //获取索引对应的cell.
     FQImagePreviewCell * cell = (FQImagePreviewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
     [cell reStoreScrollerScale];
-    
+
     self.selectIndex = page;
-    
 }
 
 -(void)setSelectIndex:(NSInteger)selectIndex
@@ -456,12 +451,9 @@
 {
     if (!_collectionView) {
         
-        UICollectionViewFlowLayout * flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        flowLayout.itemSize = self.view.bounds.size;
-        flowLayout.minimumLineSpacing = 0;
-        flowLayout.minimumInteritemSpacing = 0;
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+        FQ_CollectionViewFlowLayout * flowLayout = [[FQ_CollectionViewFlowLayout alloc]init];
+        flowLayout.minimumLineSpacing = BUBBLE_PADDING;
+        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, BUBBLE_DIAMETER + BUBBLE_PADDING, self.view.bounds.size.height) collectionViewLayout:flowLayout];
         [_collectionView registerClass:[FQImagePreviewCell class] forCellWithReuseIdentifier:@"FQImagePreviewCellID"];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

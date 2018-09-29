@@ -170,11 +170,12 @@
     requestOptions.version = PHImageRequestOptionsVersionCurrent;
     requestOptions.resizeMode = PHImageRequestOptionsResizeModeExact;//获取指定的图片.就需要设定resizeMode参数
     requestOptions.networkAccessAllowed = YES;//icloud图片
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     if (progressHandler) {
         requestOptions.progressHandler = progressHandler;
     }
     
-    [[PHImageManager defaultManager]requestImageForAsset:self.asset targetSize:CGSizeMake(ScreenW * 3, ScreenH * 3) contentMode:PHImageContentModeAspectFit options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+    [[PHImageManager defaultManager]requestImageForAsset:self.asset targetSize:CGSizeMake(ScreenW * 1.5, ScreenH * 1.5) contentMode:PHImageContentModeAspectFit options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
@@ -279,7 +280,12 @@
     self.imgSize = asset.imgSize;
 }
 
-
+-(void)setAsset:(PHAsset *)asset
+{
+    _asset = asset;
+    //获取缩略图
+    [self fetchThumbImageWithSize:CGSizeMake(70, 70) completion:nil];
+}
 
 -(void)getImageInfo
 {
