@@ -15,22 +15,39 @@
 
 @interface FQImagePreviewVc ()<UICollectionViewDataSource,UICollectionViewDelegate>
 {
-    BOOL _statusBarStyleControl;
     BOOL _statusBarShouldBeHidden;
     BOOL _previousStatusBarStyle;
 }
 
+/**
+ 图片预览collectionView
+ */
 @property (nonatomic, strong) UICollectionView *collectionView;
 
+/**
+ 资源文件数组
+ */
 @property (nonatomic, strong) NSArray *assetDataArr;
 
+/**
+ 选中索引
+ */
 @property (nonatomic, assign) NSInteger selectIndex;
 
-@property (nonatomic, assign) NSInteger willDisplayIndex;
-
+/**
+ 选择按钮
+ */
 @property (nonatomic, strong) UIButton *selectBtn;
 
+/**
+ 底部视图
+ */
 @property (nonatomic, strong) UIView *bottomView;
+
+/**
+ 顶部视图
+ */
+@property (nonatomic, strong) UIView *topView;
 
 /**
  原图按钮
@@ -42,13 +59,24 @@
  */
 @property (nonatomic, strong) UIButton *finishBtn;
 
-//加载图片大小的进度提示
+/**
+ 加载图片大小的进度提示
+ */
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
+/**
+ 临时参考资源文件数组
+ */
 @property (nonatomic, strong) NSMutableArray *tempAssetArr;
-//是否显示toolBar
+
+/**
+ 是否显示toolBar
+ */
 @property (nonatomic, assign) BOOL isShowToolBar;
 
+/**
+ 顶部视图的 d/d 文本
+ */
 @property (nonatomic, strong) UILabel *topTitleLabel;
 
 @end
@@ -78,9 +106,9 @@
     
     self.isShowToolBar = YES;
     
-    self.willDisplayIndex = 10000;
-    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    self.extendedLayoutIncludesOpaqueBars=YES;
     if (@available(iOS 11.0, *)) {
         
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -89,37 +117,22 @@
         
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.extendedLayoutIncludesOpaqueBars=YES;
     
-    [self.view addSubview:self.collectionView];
-    
-    //添加一个原图显示的view
-    [self.view addSubview:self.bottomView];
-    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.right.offset(0);
-        make.height.equalTo(@(44 + FQTABBAR_BOTTOM_SPACING));
-    }];
-    
-    [self addBarButtonItem];
-    
-    self.topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
-    
-    self.finishBtn.hidden = [[FQImagePickerContainer share]getSelectAssetArr].count == 0;
-    
+    [self creatUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     // Super
     [super viewWillAppear:animated];
-
+    
     // Set style
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
     }
+    self.navigationController.navigationBar.hidden = YES;
     
-    [self setNavBarAppearance:animated];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -129,48 +142,34 @@
         [[UIApplication sharedApplication] setStatusBarStyle:_previousStatusBarStyle animated:animated];
     }
     [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
 
-
-- (void)setNavBarAppearance:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    UINavigationBar *navBar = self.navigationController.navigationBar;
-    navBar.tintColor = [UIColor whiteColor];
-    navBar.barTintColor = nil;
-    navBar.shadowImage = nil;
-    navBar.translucent = YES;
-    navBar.barStyle = UIBarStyleBlackTranslucent;
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsCompact];
-}
-
--(void)addBarButtonItem{
+-(void)creatUI{
+    [self.view addSubview:self.collectionView];
     
-    UIButton * cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBtn addTarget:self action:@selector(clickBackBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cancelBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    cancelBtn.frame = CGRectMake(0, 0, 40, 40);
+    //添加一个原图显示的view
+    [self.view addSubview:self.bottomView];
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.offset(0);
+        make.height.equalTo(@(44 + FQTABBAR_BOTTOM_SPACING));
+    }];
     
-    //右边就是选中或者取消按钮
-    FQAsset * selectAsset = self.assetDataArr[self.selectIndex];
-    self.selectBtn = [[UIButton alloc]init];
-    self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    self.selectBtn.selected = selectAsset.isSelect;
-    [self.selectBtn setTitle:[NSString stringWithFormat:@"%zd",selectAsset.selectIndex] forState:UIControlStateSelected];
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_normal_new" inBundle:MYBUNDLE compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
-    [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_select_new" inBundle:MYBUNDLE compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
-    self.selectBtn.frame = CGRectMake(0, 0 , 25, 25);
-    [self.selectBtn addTarget:self action:@selector(clickSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:cancelBtn];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.selectBtn];
-    [_topTitleLabel sizeToFit];
-    self.navigationItem.titleView = self.topTitleLabel;
+    [self.view addSubview:self.topView];
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.offset(0);
+        make.height.equalTo(@(FQNAVIGATION_HEIGHT));
+    }];
     
     [self.collectionView setContentOffset:CGPointMake((CGFloat)self.selectIndex * (BUBBLE_DIAMETER + BUBBLE_PADDING), 0)];
+    
+    self.topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
+    
+    self.finishBtn.hidden = [[FQImagePickerContainer share]getSelectAssetArr].count == 0;
 }
+
+#pragma mark - 响应事件
 
 -(void)clickBackBtn:(UIButton *)sender
 {
@@ -306,6 +305,8 @@
     }
 }
 
+#pragma mark - collectionDelegate
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.assetDataArr.count;
@@ -325,33 +326,62 @@
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
     //因为offset不是对象不能用点访问
     CGFloat contentX = targetContentOffset->x;
-
+    
     /*round：如果参数是小数，则求本身的四舍五入。
      ceil：如果参数是小数，则求最小的整数但不小于本身.
      floor：如果参数是小数，则求最大的整数但不大于本身.
-
+     
      Example:如何值是3.4的话，则
      3.4 -- round 3.000000
      -- ceil 4.000000
      -- floor 3.00000
      **/
-
+    
     //用四色五入 计算第几页
     float pageFloat = contentX/(BUBBLE_DIAMETER + BUBBLE_PADDING);
-
+    
     NSInteger page = (int)round(pageFloat);
     //获取索引对应的cell.
     FQImagePreviewCell * cell = (FQImagePreviewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectIndex inSection:0]];
     [cell reStoreScrollerScale];
-
+    
     self.selectIndex = page;
 }
+
+#pragma mark - 显示与隐藏
+
+-(void)showOrHiddenCoverView
+{
+    _statusBarShouldBeHidden = self.isShowToolBar;
+    self.isShowToolBar = !self.isShowToolBar;
+    [self toggleStatusBarAndNavBar:!self.isShowToolBar];
+}
+
+
+- (void)toggleStatusBarAndNavBar:(BOOL)hidden {
+    if (hidden == NO) {
+        self.topView.alpha = 1.0f;
+        self.bottomView.alpha = 1.0f;
+    }
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        // 先显示navigationBar
+        if (!_isHiddenOrginBtn) {
+            self.bottomView.transform = !hidden ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, 44);
+            self.bottomView.alpha = !hidden ? 1.0f : 0.0f;
+        }
+        self.topView.top = hidden ? -self.topView.height : 0;
+        
+        [self setNeedsStatusBarAppearanceUpdate];
+        [self.topView setAlpha:!hidden ? 1.0 : 0.0];
+    } completion:nil];
+}
+
+#pragma mark - 初始化相关数据
 
 -(void)setSelectIndex:(NSInteger)selectIndex
 {
     _selectIndex = selectIndex;
     self.topTitleLabel.text = [NSString stringWithFormat:@"%zd / %zd",(_selectIndex + 1),self.assetDataArr.count];
-    [_topTitleLabel sizeToFit];
     FQAsset * selectAsset = self.assetDataArr[_selectIndex];
     self.selectBtn.selected = selectAsset.isSelect;
     [self.selectBtn setTitle:[NSString stringWithFormat:@"%zd",selectAsset.selectIndex] forState:UIControlStateSelected];
@@ -373,34 +403,6 @@
         self.orginImgBtn.height = 44;
     }
 }
-
--(void)showOrHiddenCoverView
-{
-    _statusBarShouldBeHidden = self.isShowToolBar;
-    self.isShowToolBar = !self.isShowToolBar;
-    [self toggleStatusBarAndNavBar:!self.isShowToolBar];
-}
-
-
-- (void)toggleStatusBarAndNavBar:(BOOL)hidden {
-    UINavigationBar *navBar = self.navigationController.navigationBar;
-    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide];
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        // 先显示navigationBar
-        if (!_isHiddenOrginBtn) {
-            self.bottomView.transform = !hidden ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(0, 44);
-            self.bottomView.alpha = !hidden ? 1.0f : 0.0f;
-        }
-        navBar.frame = CGRectMake(navBar.frame.origin.x,
-                                  hidden ? -navBar.frame.size.height : (FQIS_IPHONE_X ? 34 : 20),
-                                  navBar.frame.size.width,
-                                  navBar.frame.size.height);
-        [self setNeedsStatusBarAppearanceUpdate];
-        [self.navigationController.navigationBar setAlpha:!hidden ? 1.0 : 0.0];
-    } completion:nil];
-}
-
 
 -(void)setIsHiddenOrginBtn:(BOOL)isHiddenOrginBtn
 {
@@ -446,6 +448,8 @@
         self.orginImgBtn.height = 44;
     }
 }
+
+#pragma mark - 初始化相关控件
 
 -(UICollectionView *)collectionView
 {
@@ -501,9 +505,69 @@
             make.left.equalTo(self.orginImgBtn.mas_right).offset(20);
             make.centerY.equalTo(self.orginImgBtn.mas_centerY);
         }];
-
+        
     }
     return _bottomView;
+}
+
+-(UIView *)topView
+{
+    if (!_topView) {
+        _topView = [[UIView alloc]init];
+        _topView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+        /*
+         毛玻璃的样式(枚举)
+         UIBlurEffectStyleExtraLight,
+         UIBlurEffectStyleLight,
+         UIBlurEffectStyleDark
+         */
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        effectView.frame = CGRectMake(0, 0, ScreenW, FQNAVIGATION_HEIGHT);
+        [_topView addSubview:effectView];
+        
+        
+        UIButton * cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [cancelBtn addTarget:self action:@selector(clickBackBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cancelBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        
+        //右边就是选中或者取消按钮
+        FQAsset * selectAsset = self.assetDataArr[self.selectIndex];
+        self.selectBtn = [[UIButton alloc]init];
+        self.selectBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        self.selectBtn.selected = selectAsset.isSelect;
+        self.selectBtn.contentMode = UIViewContentModeScaleAspectFit;
+        [self.selectBtn setTitle:[NSString stringWithFormat:@"%zd",selectAsset.selectIndex] forState:UIControlStateSelected];
+        [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_normal_new" inBundle:MYBUNDLE compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        [self.selectBtn setBackgroundImage:[UIImage imageNamed:@"icon_social_photo_select_new" inBundle:MYBUNDLE compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
+        [self.selectBtn addTarget:self action:@selector(clickSelectBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_topView addSubview:cancelBtn];
+        [_topView addSubview:self.selectBtn];
+        [_topView addSubview:self.topTitleLabel];
+        
+        [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.offset(20);
+            make.top.offset(FQNAVIGATION_HEIGHT - 44);
+            make.height.equalTo(@44);
+        }];
+        
+        [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.offset(-20);
+            make.centerY.equalTo(cancelBtn.mas_centerY);
+            make.height.width.equalTo(@25);
+        }];
+        
+        [self.topTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_topView.mas_centerX);
+            make.height.equalTo(@44);
+            make.bottom.equalTo(@0);
+        }];
+        
+    }
+    return _topView;
 }
 
 -(UIButton *)orginImgBtn

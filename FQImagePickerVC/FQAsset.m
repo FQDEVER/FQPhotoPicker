@@ -175,7 +175,16 @@
         requestOptions.progressHandler = progressHandler;
     }
     
-    [[PHImageManager defaultManager]requestImageForAsset:self.asset targetSize:CGSizeMake(ScreenW * 1.5, ScreenH * 1.5) contentMode:PHImageContentModeAspectFit options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+    
+    CGSize targetSize = CGSizeMake(ScreenW * 1.5, ScreenH * 1.5);
+    
+    if (self.asset.pixelWidth <= 400 && self.asset.pixelHeight >= 5000) {
+        targetSize = CGSizeMake(self.asset.pixelWidth * 0.5, self.asset.pixelHeight * 0.5);
+    }else if(self.asset.pixelHeight <= 400 && self.asset.pixelWidth >= 5000){
+        targetSize = CGSizeMake(self.asset.pixelWidth * 0.5, self.asset.pixelHeight * 0.5);
+    }
+    
+    [[PHImageManager defaultManager]requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
             BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
