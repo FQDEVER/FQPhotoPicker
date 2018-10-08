@@ -273,7 +273,11 @@ static FQImagePickerContainer *imgPickerContainer;
         if (asset.isOrgin) {
             return UIImageJPEGRepresentation(asset.orginImg, 0.5);
         }else{
-            return UIImageJPEGRepresentation(asset.previewImg, 1.0);
+            if (asset.previewImg) {
+                return UIImageJPEGRepresentation(asset.previewImg, 1.0);
+            }else{
+                return UIImageJPEGRepresentation(asset.thumbImg, 1.0);
+            }
         }
     }
 }

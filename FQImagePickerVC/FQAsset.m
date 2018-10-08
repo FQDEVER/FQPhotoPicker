@@ -178,9 +178,7 @@
     
     CGSize targetSize = CGSizeMake(ScreenW * 1.5, ScreenH * 1.5);
     
-    if (self.asset.pixelWidth <= 400 && self.asset.pixelHeight >= 5000) {
-        targetSize = CGSizeMake(self.asset.pixelWidth * 0.5, self.asset.pixelHeight * 0.5);
-    }else if(self.asset.pixelHeight <= 400 && self.asset.pixelWidth >= 5000){
+    if (self.asset.pixelHeight / self.asset.pixelWidth > 3.0) {
         targetSize = CGSizeMake(self.asset.pixelWidth * 0.5, self.asset.pixelHeight * 0.5);
     }
     
