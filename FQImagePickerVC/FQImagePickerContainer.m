@@ -110,7 +110,11 @@ static FQImagePickerContainer *imgPickerContainer;
              if (asset.isOrgin) {
                  [selectImgArr addObject:asset.orginImg];
              }else{
-                 [selectImgArr addObject:asset.previewImg];
+                 if (asset.previewImg) {
+                     [selectImgArr addObject:asset.previewImg];
+                 }else{
+                     [selectImgArr addObject:asset.thumbImg];
+                 }
              }
          }
     }
