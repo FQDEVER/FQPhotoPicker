@@ -103,7 +103,7 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.navigationItem.hidesBackButton = YES;
     self.isShowToolBar = YES;
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;

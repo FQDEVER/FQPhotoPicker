@@ -51,6 +51,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.cancelBtn];
     
     self.navigationController.navigationBar.translucent = YES;
+    
     if (@available(iOS 11.0, *))
     {
         self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -185,6 +186,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
     if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) {
         [self.collectionView reloadData];
     }
