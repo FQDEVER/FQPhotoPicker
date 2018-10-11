@@ -271,7 +271,14 @@ static FQImagePickerContainer *imgPickerContainer;
         return asset.gifImageData;
     }else{
         if (asset.isOrgin) {
-            return UIImageJPEGRepresentation(asset.orginImg, 0.5);
+            NSData * originimageData = asset.originImageData;
+            if (originimageData.length > 1.0 * 1024 * 1024) {
+                CGFloat scale = 1.0 *1024*1024/originimageData.length;
+                NSData * changData = UIImageJPEGRepresentation(asset.orginImg, scale);
+                return changData;
+            }else{
+                return originimageData;
+            }
         }else{
             if (asset.previewImg) {
                 return UIImageJPEGRepresentation(asset.previewImg, 1.0);

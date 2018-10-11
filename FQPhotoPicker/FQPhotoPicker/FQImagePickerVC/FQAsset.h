@@ -48,6 +48,12 @@
 //是否gif图
 @property (nonatomic, assign) BOOL isGif;
 
+//是否是长图
+@property (nonatomic, assign) BOOL isLong;
+
+//是否是宽图
+@property (nonatomic, assign) BOOL isWidth;
+
 //原图
 @property (nonatomic, strong ,readonly) UIImage *orginImg;
 
@@ -62,6 +68,9 @@
 
 //获取gif图片data数据
 @property (nonatomic, strong ,readonly) NSData *gifImageData;
+
+//获取原图图片data数据
+@property (nonatomic, strong ,readonly) NSData *originImageData;
 
 //获取图片尺寸
 @property (nonatomic, assign, readonly) CGFloat imgSize;
@@ -80,6 +89,12 @@
 
 //异步获取原图
 -(void)fetchSourceImageWithCompletion:(void(^)(UIImage * ,NSDictionary *))completion progressBlock:(PHAssetImageProgressHandler)progressHandler;
+
+//异步获取原图Data数据
+-(void)fetchOriginImageDataWithCompletion:(void(^)(NSData * ,NSDictionary *))completion;
+
+//异步获取原图 - 因为内存原因.使用高清预览图代替原图
+-(void)fetchPreviewReplaceOriginImageWithCompletion:(void(^)(UIImage * ,NSDictionary *))completion;
 
 //同步获取缩略图
 -(UIImage *)getThumbnailImageWithSize:(CGSize)size;

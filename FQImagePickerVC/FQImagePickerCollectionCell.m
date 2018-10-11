@@ -90,6 +90,9 @@
     _asset = asset;
     self.selectBtn.selected = asset.isSelect;
     __weak typeof(self)weakSelf = self;
+    [asset fetchThumbImageWithSize:self.bounds.size completion:^(UIImage *thumbImg, NSDictionary *dict) {
+        weakSelf.contentImg.image = thumbImg;
+    }];
     //如果选中.添加这个
     if (asset.isSelect) {
         [[FQImagePickerContainer share] addAsset:_asset andImagePickerCell:weakSelf];
@@ -107,13 +110,16 @@
             
         }];
         self.gifLabel.hidden = NO;
-    }else{
+        self.gifLabel.text = @"GIF";
+    }else if(asset.isLong){
+        self.gifLabel.hidden = NO;
+        self.gifLabel.text = @"长图";
+    }else if(asset.isWidth){
+        self.gifLabel.hidden = NO;
+        self.gifLabel.text = @"宽图";
+    }else {
         self.gifLabel.hidden = YES;
     }
-    [asset fetchThumbImageWithSize:self.bounds.size completion:^(UIImage *thumbImg, NSDictionary *dict) {
-        weakSelf.contentImg.image = thumbImg;
-    }];
-    
 }
 
 -(void)setIsScanCode:(BOOL)isScanCode

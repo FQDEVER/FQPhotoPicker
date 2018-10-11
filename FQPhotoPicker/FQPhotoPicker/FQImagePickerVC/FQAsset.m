@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) NSData *gifImageData;
 
+@property (nonatomic, strong) NSData *originImageData;
+
 @property (nonatomic, assign) CGFloat imgSize;
 
 @property (nonatomic, copy) void(^getImgSizeBlock)(NSString * imgSizeStr,FQAsset * asset);
@@ -66,6 +68,7 @@
     if (progressHandler) {
         requestOptions.progressHandler = progressHandler;
     }
+    
     [[PHImageManager defaultManager] requestImageForAsset:self.asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
@@ -84,6 +87,99 @@
     }];
 }
 
+//异步获取原图 - 因为内存原因.使用高清预览图代替原图
+-(void)fetchPreviewReplaceOriginImageWithCompletion:(void(^)(UIImage * ,NSDictionary *))completion
+{
+    if (_orginImg) {
+        if (completion) {
+            completion(_orginImg,nil);
+        }
+        return;
+    }
+    
+    PHImageRequestOptions * requestOptions = [[PHImageRequestOptions alloc]init];
+    requestOptions.resizeMode = PHImageRequestOptionsResizeModeFast;//获取指定的图片.就需要设定resizeMode参数
+    requestOptions.networkAccessAllowed = YES;//icloud图片
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    
+    CGSize targetSize = CGSizeMake(ScreenW * 3, ScreenH * 3);
+    
+    if (self.asset.pixelHeight / self.asset.pixelWidth > 3.0) {
+        
+        if (self.asset.pixelWidth > ScreenW * 2) {
+            
+            targetSize = CGSizeMake(ScreenW * 2.0, self.asset.pixelHeight * ScreenW * 2.0/ self.asset.pixelWidth);
+        }else{
+            
+            targetSize = CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
+        }
+    }else if(self.asset.pixelWidth / self.asset.pixelHeight > 3.0){
+        
+        if (self.asset.pixelHeight > ScreenH) {
+            
+            targetSize = CGSizeMake(self.asset.pixelWidth * ScreenH/ self.asset.pixelHeight,ScreenH);
+            
+        }else{
+            
+            targetSize = CGSizeMake(self.asset.pixelHeight,self.asset.pixelWidth);
+        }
+    }
+    
+    [[PHImageManager defaultManager]requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+        if (downloadFinined && result) {
+            BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
+            if (!isDegraded) {
+                if (result) {
+                    _orginImg = result;
+                }
+                if (completion) {
+                    completion(result,info);
+                }
+            }else{
+            }
+        }else{
+        }
+    }];
+    
+}
+
+
+
+//异步获取原图Data数据
+-(void)fetchOriginImageDataWithCompletion:(void(^)(NSData * ,NSDictionary *))completion
+{
+    if (_originImageData) {
+        if (completion) {
+            completion(_originImageData,nil);
+        }
+        return;
+    }
+    
+    PHImageRequestOptions * requestOptions = [[PHImageRequestOptions alloc]init];
+    requestOptions.resizeMode = PHImageRequestOptionsResizeModeFast;
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    requestOptions.networkAccessAllowed = YES;//icloud图片
+    
+    [[PHImageManager defaultManager] requestImageDataForAsset:self.asset options:requestOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+        if (downloadFinined && imageData) {
+            float imageSize = imageData.length; //convert to MB
+            _imgSize = imageSize/(1024*1024.0);
+            
+            BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
+            if (!isDegraded) {
+                if (imageData) {
+                    _originImageData = imageData;
+                    if (completion) {
+                        completion(_originImageData,info);
+                    }
+                }
+            }
+        }
+    }];
+    
+}
 
 //同步获取缩略图
 -(UIImage *)getThumbnailImageWithSize:(CGSize)size
@@ -103,14 +199,9 @@
     return thumbImg;
 }
 
-
 //异步获取缩略图
 -(void)fetchThumbImageWithSize:(CGSize)size completion:(void(^)(UIImage * ,NSDictionary *))completion
 {
-    self.isGif = [[self.asset valueForKey:@"filename"] containsString:@".GIF"];
-    if (_imgSize == 0) {
-        [self getImageInfo];
-    }
     
     if (_thumbImg) {
         if (completion) {
@@ -122,17 +213,40 @@
     PHImageRequestOptions * requestOptions = [[PHImageRequestOptions alloc]init];
     requestOptions.resizeMode = PHImageRequestOptionsResizeModeExact;
     CGSize thumbImg = CGSizeMake(size.width * screenScale, size.height * screenScale);
+    
+    //获取是否是长图还是宽图
+    if (_asset.pixelHeight / _asset.pixelWidth > 3.0) {
+        self.isLong = YES;
+        thumbImg.height = thumbImg.width *_asset.pixelHeight / _asset.pixelWidth;
+    }else if(_asset.pixelWidth / _asset.pixelHeight > 3.0){
+        self.isWidth = YES;
+        thumbImg.width = thumbImg.height *_asset.pixelWidth / _asset.pixelHeight;
+    }else if([[_asset valueForKey:@"filename"] containsString:@".GIF"]){
+        self.isGif = YES;
+    }
+    
     [[PHImageManager defaultManager] requestImageForAsset:self.asset targetSize:thumbImg contentMode:PHImageContentModeDefault options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         
-        //首先获取
-        if (result) {//如果下载成功
-            _thumbImg = result;
+        BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
+        if (downloadFinined) {
+            BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
+            if (!isDegraded) {
+                //首先获取
+                if (result) {//如果下载成功
+                    _thumbImg = result;
+                }
+                
+                if (completion) {
+                    completion(result,info);
+                }
+            }else{
+                
+                if (completion) {
+                    completion(result,info);
+                }
+            }
+        }else{
         }
-        
-        if (completion) {
-            completion(result,info);
-        }
-        
     }];
 }
 
@@ -153,7 +267,6 @@
     _previewImg = previewImg;
     return _previewImg;
 }
-
 
 
 //异步获取预览图
@@ -179,7 +292,20 @@
     CGSize targetSize = CGSizeMake(ScreenW * 1.5, ScreenH * 1.5);
     
     if (self.asset.pixelHeight / self.asset.pixelWidth > 3.0) {
-        targetSize = CGSizeMake(self.asset.pixelWidth * 0.5, self.asset.pixelHeight * 0.5);
+        
+        if (self.asset.pixelWidth > ScreenW) {
+            
+            targetSize = CGSizeMake(ScreenW, self.asset.pixelHeight * ScreenW/ self.asset.pixelWidth);
+        }else{
+            targetSize = CGSizeMake(self.asset.pixelWidth, self.asset.pixelHeight);
+        }
+    }else if(self.asset.pixelWidth / self.asset.pixelHeight > 3.0){
+        if (self.asset.pixelHeight > ScreenH * 0.5) {
+            
+            targetSize = CGSizeMake(self.asset.pixelWidth * ScreenH * 0.5/ self.asset.pixelHeight,ScreenH * 0.5);
+        }else{
+            targetSize = CGSizeMake(self.asset.pixelHeight,self.asset.pixelWidth);
+        }
     }
     
     [[PHImageManager defaultManager]requestImageForAsset:self.asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:requestOptions resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
@@ -258,16 +384,16 @@
 {
     _isOrgin = isOrgin;
     
-    if (_isSelect && _isOrgin) { //如果又是原图.又是选中状态.就获取原图
-        [self fetchSourceImageWithCompletion:nil progressBlock:nil];
+    if (_isSelect && _isOrgin) { //如果又是原图.又是选中状态.就获取原图.获取原图数据
+        [self fetchPreviewReplaceOriginImageWithCompletion:nil];
     }
 }
 
 -(void)setIsSelect:(BOOL)isSelect
 {
     _isSelect = isSelect;
-    if (_isSelect && _isOrgin) { //如果又是原图.又是选中状态.就获取原图
-        [self fetchSourceImageWithCompletion:nil progressBlock:nil];
+    if (_isSelect && _isOrgin) { //如果又是原图.又是选中状态.就获取原图.获取原图数据
+        [self fetchPreviewReplaceOriginImageWithCompletion:nil];
     }else if (_isSelect && !_isOrgin){
         [self fetchPreviewImgWithCompletion:nil progressBlock:nil];
     }
@@ -279,11 +405,14 @@
     self.isSelect = asset.isSelect;
     self.isOrgin = asset.isOrgin;
     self.isGif = asset.isGif;
+    self.isLong = asset.isLong;
+    self.isWidth = asset.isWidth;
     self.orginImg = asset.orginImg;
     self.thumbImg = asset.thumbImg;
     self.previewImg = asset.previewImg;
     self.gifImage = asset.gifImage;
     self.gifImageData = asset.gifImageData;
+    self.originImageData = asset.originImageData;
     self.imgSize = asset.imgSize;
 }
 
@@ -291,23 +420,17 @@
 {
     _asset = asset;
     //获取缩略图
-    [self fetchThumbImageWithSize:CGSizeMake(70, 70) completion:nil];
+    [self fetchThumbImageWithSize:CGSizeMake(70,70) completion:nil];
 }
 
 -(void)getImageInfo
 {
-    // Fallback on earlier versions
-    PHImageRequestOptions * requestOptions = [[PHImageRequestOptions alloc]init];
-    requestOptions.networkAccessAllowed = YES;//icloud图片
-    [[PHImageManager defaultManager] requestImageDataForAsset:_asset options:requestOptions resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-        float imageSize = imageData.length; //convert to MB
-        imageSize = imageSize/(1024*1024.0);
-        _imgSize = imageSize;
+    
+    [self fetchOriginImageDataWithCompletion:^(NSData *data, NSDictionary *dict) {
         if (_getImgSizeBlock) {
             _getImgSizeBlock([NSString stringWithFormat:@"%.02fM",_imgSize],self);
-        }
+        };
     }];
-    
 }
 
 -(void)getOrginImgSize:(void(^)(NSString * imgSizeStr,FQAsset * asset))imgSizeBlock

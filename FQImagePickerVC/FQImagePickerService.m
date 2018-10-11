@@ -167,14 +167,12 @@ static FQImagePickerService *imgPickerService;
         //所有图片FQAsset对象
         __block NSMutableArray * fq_assets = [NSMutableArray array];
         //遍历所有对应assets的数组
-        for (PHAsset * asset in assets) {
-            
+        for (int i = 0; i < count; ++i) {
+            PHAsset * asset = assets[count - 1 - i];
             FQAsset * fq_asset = [[FQAsset alloc]init];
             fq_asset.asset = asset;
             [fq_assets addObject:fq_asset];
         }
-        
-        fq_assets = (NSMutableArray *)[[fq_assets reverseObjectEnumerator]allObjects];
         
         if ([titleStr isEqualToString:self.allPhotosStr]) {
             [fq_assets insertObject:[FQAsset new] atIndex:0];

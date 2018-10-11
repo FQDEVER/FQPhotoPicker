@@ -250,7 +250,6 @@
     sender.selected = !sender.selected;
     FQAsset * selectAsset = self.assetDataArr[self.selectIndex];
     if (sender.selected) {
-        selectAsset.isOrgin = YES;
         [self.indicatorView startAnimating];
         __weak typeof(self) weakSelf = self;
         [selectAsset getOrginImgSize:^(NSString *imgSizeStr,FQAsset *asset) {
@@ -264,6 +263,7 @@
                 [weakSelf.indicatorView stopAnimating];
             });
         }];
+        selectAsset.isOrgin = YES;
     }else{
         selectAsset.isOrgin = NO;
         [sender setTitle:@"原图" forState:UIControlStateNormal];
