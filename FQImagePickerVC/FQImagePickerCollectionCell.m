@@ -35,6 +35,7 @@
 
 -(void)creatUI{
     self.contentImg = [[UIImageView alloc]init];
+//    self.contentImg.backgroundColor = [UIColor lightGrayColor];
     self.contentImg.frame = self.bounds;
     self.contentImg.contentMode = UIViewContentModeScaleAspectFill;
     self.contentImg.clipsToBounds = YES;
