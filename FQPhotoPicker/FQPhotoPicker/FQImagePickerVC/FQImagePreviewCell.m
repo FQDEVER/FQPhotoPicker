@@ -257,25 +257,27 @@
     _asset = asset;
     __weak typeof(self) weakSelf = self;
     self.progressLayer.hidden = YES;
-    self.imageView.image = asset.thumbImg;
-    [self resizeSubviewSize];
-    if (asset.isGif) {
-        [asset fetchGIFImgWithCompletion:^(UIImage *gifImg, NSDictionary *dict) {
-            weakSelf.imageView.image = gifImg;
-            [weakSelf resizeSubviewSize];
-            weakSelf.progressLayer.hidden = YES;
-        }progressBlock:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
-            if (isnan(progress)) progress = 0;
-            weakSelf.progressLayer.hidden = NO;
-            weakSelf.progressLayer.strokeEnd = progress;
-        }];
-    }else{
-        [asset fetchPreviewImgWithCompletion:^(UIImage *image, NSDictionary *dict) {
-
-            weakSelf.imageView.image = image;
-            [weakSelf resizeSubviewSize];
-        } progressBlock:nil];
-    }
+    
+    [asset fetchThumbImageWithSize:CGSizeMake(70, 70) completion:^(UIImage *thumImg, NSDictionary *dict) {
+        weakSelf.imageView.image = thumImg;
+        [self resizeSubviewSize];
+        if (asset.isGif) {
+            [asset fetchGIFImgWithCompletion:^(UIImage *gifImg, NSDictionary *dict) {
+                weakSelf.imageView.image = gifImg;
+                [weakSelf resizeSubviewSize];
+                weakSelf.progressLayer.hidden = YES;
+            }progressBlock:^(double progress, NSError * _Nullable error, BOOL * _Nonnull stop, NSDictionary * _Nullable info) {
+                if (isnan(progress)) progress = 0;
+                weakSelf.progressLayer.hidden = NO;
+                weakSelf.progressLayer.strokeEnd = progress;
+            }];
+        }else{
+            [asset fetchPreviewImgWithCompletion:^(UIImage *image, NSDictionary *dict) {
+                weakSelf.imageView.image = image;
+                [weakSelf resizeSubviewSize];
+            } progressBlock:nil];
+        }
+    }];
 }
 
 - (void)resizeSubviewSize {

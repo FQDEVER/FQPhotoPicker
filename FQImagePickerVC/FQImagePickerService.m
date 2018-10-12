@@ -15,7 +15,7 @@
 //@{@"相册名称":@{FQPHImage:相册所有FQAsset数组,FQPHTitle:相册名称,FQPHCount:图片数量}}
 
 @property (nonatomic, strong) NSMutableArray *titleStrArr;
-
+//所有照片的相册名称
 @property (nonatomic, copy) NSString *allPhotosStr;
 @end
 @implementation FQImagePickerService
@@ -168,10 +168,12 @@ static FQImagePickerService *imgPickerService;
         __block NSMutableArray * fq_assets = [NSMutableArray array];
         //遍历所有对应assets的数组
         for (int i = 0; i < count; ++i) {
-            PHAsset * asset = assets[count - 1 - i];
-            FQAsset * fq_asset = [[FQAsset alloc]init];
-            fq_asset.asset = asset;
-            [fq_assets addObject:fq_asset];
+            @autoreleasepool {
+                PHAsset * asset = assets[count - 1 - i];
+                FQAsset * fq_asset = [[FQAsset alloc]init];
+                fq_asset.asset = asset;
+                [fq_assets addObject:fq_asset];
+            }
         }
         
         if ([titleStr isEqualToString:self.allPhotosStr]) {

@@ -455,6 +455,7 @@
                 }else{
                     [weakSelf alertTipWithUpperLimit];
                 }
+                
                 [[FQImagePickerService share] reloadData];
                 __weak typeof(self)weakSelf = self;
                 [FQImagePickerService share].dataLoadCompelteBlock = ^(NSArray *array){

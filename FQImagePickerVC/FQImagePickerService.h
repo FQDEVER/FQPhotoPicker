@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class FQAsset;
 @interface FQImagePickerService : NSObject
 
 /**

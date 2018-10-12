@@ -416,13 +416,6 @@
     self.imgSize = asset.imgSize;
 }
 
--(void)setAsset:(PHAsset *)asset
-{
-    _asset = asset;
-    //获取缩略图
-    [self fetchThumbImageWithSize:CGSizeMake(70,70) completion:nil];
-}
-
 -(void)getImageInfo
 {
     
