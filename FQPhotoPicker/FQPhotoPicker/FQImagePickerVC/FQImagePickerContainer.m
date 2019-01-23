@@ -277,7 +277,10 @@ static FQImagePickerContainer *imgPickerContainer;
                 NSData * changData = UIImageJPEGRepresentation(asset.orginImg, scale);
                 return changData;
             }else{
-                return originimageData;
+                
+                NSData * changData = UIImageJPEGRepresentation(asset.orginImg, 1.0);
+                return changData;
+                
             }
         }else{
             if (asset.previewImg) {

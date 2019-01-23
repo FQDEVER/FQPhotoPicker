@@ -108,7 +108,6 @@
             if (isnan(progress)) progress = 0;
             weakSelf.progressLayer.hidden = NO;
             weakSelf.progressLayer.strokeEnd = progress;
-            
         }];
         self.gifLabel.hidden = NO;
         self.gifLabel.text = @"GIF";

@@ -288,7 +288,6 @@
         requestOptions.progressHandler = progressHandler;
     }
     
-    
     CGSize targetSize = CGSizeMake(ScreenW * 1.5, ScreenH * 1.5);
     
     if (self.asset.pixelHeight / self.asset.pixelWidth > 3.0) {
@@ -337,16 +336,18 @@
     }
     
     PHImageRequestOptions * requestOptions = [[PHImageRequestOptions alloc]init];
-    requestOptions.version = PHImageRequestOptionsVersionCurrent;
+    requestOptions.version = PHImageRequestOptionsVersionOriginal;
     requestOptions.resizeMode = PHImageRequestOptionsResizeModeExact;//获取指定的图片.就需要设定resizeMode参数
     requestOptions.networkAccessAllowed = YES;//icloud图片
     /*
      针对icloud加载到本地的进度
+     // 下载iCloud 图片的进度回调 只要图片是在icloud中 然后去请求图片就会走这个回调 如果图片没有在iCloud中不回走这个回调
+     //里面的会调中的参数重 NSDictionary *info 是否有cloudKey 来判断是否是  iCloud 处理UI放到主线程
      */
     if (progressHandler) {
         requestOptions.progressHandler = progressHandler;
     }
-    
+
     [[PHImageManager defaultManager] requestImageDataForAsset:self.asset options:requestOptions resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && imageData) {
@@ -395,7 +396,11 @@
     if (_isSelect && _isOrgin) { //如果又是原图.又是选中状态.就获取原图.获取原图数据
         [self fetchPreviewReplaceOriginImageWithCompletion:nil];
     }else if (_isSelect && !_isOrgin){
-        [self fetchPreviewImgWithCompletion:nil progressBlock:nil];
+        if (!self.isGif) {
+            [self fetchPreviewImgWithCompletion:nil progressBlock:nil];
+        }else{
+            [self fetchGIFImgWithCompletion:nil progressBlock:nil];
+        }
     }
 }
 

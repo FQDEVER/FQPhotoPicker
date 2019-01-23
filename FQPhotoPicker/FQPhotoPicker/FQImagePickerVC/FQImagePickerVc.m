@@ -610,7 +610,7 @@
         [_confirmBtn setTitle:@"确定" forState:UIControlStateNormal];
         _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        if (FQIS_IPHONE_X) {
+        if (FQIS_IPHONE_X_SERIES) {
             _confirmBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 20, 0);
         }
         [_confirmBtn addTarget:self action:@selector(clickConfirmBtn:) forControlEvents:UIControlEventTouchUpInside];
